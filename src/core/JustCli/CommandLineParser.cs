@@ -4,13 +4,6 @@ using JustCli.Commands;
 
 namespace JustCli
 {
-    // TODO: queue instead of []. Command context + parser.
-    // FEATURE: setup utility info(like author and etc)
-    // FEATURE: use ILMerge to have one utility file(cmd.exe)
-    // FEATURE: nuget package
-    // FEATURE: indexed command context
-    // FEATURE: Add command option. Command argument is positional argument. Option is get by name.
-    // FEATURE: Command help method.
     public class CommandLineParser
     {
         private static readonly string[] HelpCommandAliases = new[] { "?", "-?", "-h", "--help" }; 

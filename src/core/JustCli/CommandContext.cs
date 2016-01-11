@@ -5,6 +5,7 @@ namespace JustCli
 {
     // Works with -a or --action params.
     // TODO: indexed command context.
+    // TODO: queue instead of []. Command context + parser.
     public class CommandContext
     {
         public string[] Args { get; set; }
