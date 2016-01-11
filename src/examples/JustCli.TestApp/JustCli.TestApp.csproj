@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\SayHelloCommand.cs" />
+    <Compile Include="Commands\ShowFileCreationDateCommand.cs" />
     <Compile Include="Commands\ShowTimeCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
