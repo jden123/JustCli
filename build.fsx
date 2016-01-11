@@ -71,7 +71,7 @@ Target "BuildNugetPackage" (fun _ ->
 Target "CreateNuget" (fun _ ->
    let nuspec = "src/core/JustCli/JustCli.nuspec"
 
-   let nugetAccessKey = "67368034-568d-453c-8deb-1a76eeefa000" //getBuildParamOrDefault "nugetkey" ""
+   let nugetAccessKey = "TODO" //getBuildParamOrDefault "nugetkey" ""
    let nugetDoPublish = nugetAccessKey.Equals "" |> not
    let nugetPublishUrl = getBuildParamOrDefault "nugetserver" "https://nuget.org"
 
