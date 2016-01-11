@@ -33,11 +33,13 @@ namespace JustCli
             return value;
         }
 
+        // TODO: try method and write down an error message
         public object GetArgValue(ArgumentInfo argumentInfo, Type propertyType)
         {
             return GetArgValue(argumentInfo.ShortName, argumentInfo.LongName, argumentInfo.DefaultValue, propertyType);
         }
 
+        // TODO: try method and write down an error message
         private static object ConvertFromString(string stringValue, Type toType)
         {
             var typeConverter = TypeDescriptor.GetConverter(toType);
