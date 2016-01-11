@@ -1,2 +1,2 @@
 # JustCli
-Fast way to create your command line tool.
+Just a quick way to create your own command line tool.
