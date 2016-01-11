@@ -10,12 +10,12 @@ namespace JustCli.Attributes
         public object DefaultValue { get; set; }
         public string Description { get; set; }
 
-        // TODO: should include description?
-        public CommandArgumentAttribute(string shortName, string longName = null, object defaultValue = null)
+        public CommandArgumentAttribute(string shortName, string longName = null, object defaultValue = null, string description = null)
         {
             ShortName = shortName;
             LongName = longName;
             DefaultValue = defaultValue;
+            Description = description;
         }
     }
 }
