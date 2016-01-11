@@ -40,5 +40,19 @@ namespace JustCli.Tests
             Assert.IsInstanceOf<DateTime>(value);
             Assert.AreEqual(resultValue, value);
         }
+
+        [TestCase("false", false)]
+        [TestCase("true", true)]
+        [TestCase("False", false)]
+        [TestCase("True", true)]
+        public void ConverterShouldConvertToBoolean(string stringValue, bool resultValue)
+        {
+            var converter = new ValueConverter();
+
+            var value = converter.ConvertFromString(stringValue, typeof(bool));
+
+            Assert.IsInstanceOf<bool>(value);
+            Assert.AreEqual(resultValue, value);
+        }
     }
 }
