@@ -15,6 +15,12 @@ namespace JustCli.Commands
         {
             var commandsInfo = CommandRepository.GetCommandsInfo();
 
+            if (commandsInfo.Count == 0)
+            {
+                Output.WriteInfo("There are no commands.");
+                return true;
+            }
+
             Output.WriteInfo("Command list:");
             foreach (var commandInfo in commandsInfo)
             {
