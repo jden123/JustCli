@@ -22,7 +22,7 @@ namespace JustCli
             {
                 if (defaultValue == null)
                 {
-                    throw new Exception("The argument is not presented in command line.");
+                    throw new Exception(string.Format("The argument[{0}] is not presented in command line.", longName));
                 }
                 
                 return defaultValue;

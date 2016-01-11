@@ -120,10 +120,24 @@ namespace JustCli.Tests
         }
 
         [Test]
-        public void ParserShouldThrowErrorIfArgIsNotSet()
+        public void ParserShouldNotThrowErrorIfArgIsNotSet()
         {
             string[] args = new[] { "dosomething-ntimes" };
-            Assert.Throws<Exception>(() => _commandLineParser.ParseCommand(args));
+            Assert.DoesNotThrow(() => _commandLineParser.ParseCommand(args));
+        }
+
+        [Test]
+        public void ParseAndExecuteCommandShouldNotThrowErrorIfArgIsNotSet()
+        {
+            string[] args = new[] { "dosomething-ntimes" };
+            Assert.AreNotEqual(0, new CommandLineParser(_commandRepository).ParseAndExecuteCommand(args));
+        }
+
+        [Test]
+        public void ParseAndExecuteCommandShouldReturnErrorCodeIfArgIsNotSet()
+        {
+            string[] args = new[] { "dosomething-ntimes" };
+            Assert.AreNotEqual(0, new CommandLineParser(_commandRepository).ParseAndExecuteCommand(args));
         }
 
         [TestCase("?")]

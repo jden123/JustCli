@@ -25,7 +25,6 @@ namespace JustCli.Tests
             _commandLineParser = new CommandLineParser(_commandRepository);
         }
 
-
         [Test]
         public void CommandLineHelpCommandShouldReturnAllCommandInfo()
         {
@@ -38,5 +37,18 @@ namespace JustCli.Tests
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("command2")));
         }
 
+        [Test]
+        public void CommandLineHelpCommandShouldShowNoCommandsMessageIfThereAreNoCommands()
+        {
+            var emptyCommandRepository = Substitute.For<ICommandRepository>();
+            emptyCommandRepository.GetCommandsInfo().Returns(new List<CommandInfo>());
+           
+            var memoryOutput = new MemoryOutput();
+            var commandLineHelpCommand = new CommandLineHelpCommand(emptyCommandRepository, memoryOutput);
+
+            commandLineHelpCommand.Execute();
+
+            Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("There are no commands.")));
+        }
     }
 }

@@ -48,12 +48,29 @@ namespace JustCli
                 return new CommandHelpCommand(commandType, new ConsoleOutput());
             }
 
-            return CommandActivator.CreateCommand(commandType, args);
+            try
+            {
+                return CommandActivator.CreateCommand(commandType, args);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Cannot setup [{0}] command.", commandName));
+                return null;
+
+                // NOTE: we can show command help. Do we need?
+                //return new CommandHelpCommand(commandType, new ConsoleOutput());
+            }
         }
 
         public int ParseAndExecuteCommand(string[] args)
         {
-            var command = Default.ParseCommand(args);
+            var command = ParseCommand(args);
+
+            if (command == null)
+            {
+                return 1;
+            }
+
             return command.Execute() ? 0 : 1;
         }
 
