@@ -185,3 +185,6 @@ $RECYCLE.BIN/
 
 # Fake folder
 .fake
+
+# publish.bat
+publish.bat
