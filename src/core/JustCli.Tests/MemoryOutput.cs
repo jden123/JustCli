@@ -7,6 +7,11 @@ namespace JustCli.Tests
     {
         public List<string> Content = new List<string>();
 
+        public void WriteWarning(string message)
+        {
+            Content.Add(message);
+        }
+
         public void WriteError(string message)
         {
             Content.Add(message);
@@ -18,6 +23,11 @@ namespace JustCli.Tests
         }
 
         public void WriteInfo(string message)
+        {
+            Content.Add(message);
+        }
+
+        public void WriteSuccess(string message)
         {
             Content.Add(message);
         }

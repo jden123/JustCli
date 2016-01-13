@@ -50,7 +50,8 @@
     <Compile Include="CommandMetaDataHelper.cs" />
     <Compile Include="Commands\CommandHelpCommand.cs" />
     <Compile Include="Commands\CommandLineHelpCommand.cs" />
-    <Compile Include="ConsoleOutput.cs" />
+    <Compile Include="Outputs\ColoredConsoleOutput.cs" />
+    <Compile Include="Outputs\ConsoleOutput.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandRepository.cs" />
     <Compile Include="IOutput.cs" />

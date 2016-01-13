@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using JustCli.Commands;
+using JustCli.Outputs;
 
 namespace JustCli
 {
