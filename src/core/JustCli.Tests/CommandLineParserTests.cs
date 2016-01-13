@@ -17,6 +17,7 @@ namespace JustCli.Tests
             _commandRepository = Substitute.For<ICommandRepository>();
             _commandRepository.GetCommandType("dosomething").Returns(typeof(DoSomethingCommand));
             _commandRepository.GetCommandType("dosomething-ntimes").Returns(typeof(DoSomethingNTimesCommand));
+            _commandRepository.GetCommandType("ex").Returns(typeof(ThrowExceptionCommand));
 
             _commandLineParser = new CommandLineParser(_commandRepository);
         }
@@ -151,6 +152,13 @@ namespace JustCli.Tests
            var command = _commandLineParser.ParseCommand(args);
 
            Assert.IsInstanceOf<CommandHelpCommand>(command);
+        }
+
+        [Test]
+        public void ParserShouldCatchCommandException()
+        {
+           string[] args = new[] { "ex" };
+           Assert.DoesNotThrow(() => _commandLineParser.ParseAndExecuteCommand(args));
         }
     }
 }

@@ -66,12 +66,21 @@ namespace JustCli
         {
             var command = ParseCommand(args);
 
+            // NOTE: the error code should send the command.
             if (command == null)
             {
                 return 1;
             }
 
-            return command.Execute() ? 0 : 1;
+            try
+            {
+                return command.Execute() ? 0 : 1;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return 1;
+            }
         }
 
         private CommandLineHelpCommand CreateDefaultCommand()
