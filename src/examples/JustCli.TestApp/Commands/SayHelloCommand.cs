@@ -9,10 +9,10 @@ namespace JustCli.TestApp.Commands
         [CommandArgument("n", "name", Description = "The someone to greet.", DefaultValue = "World")]
         public string Name { get; set; }
 
-        public bool Execute()
+        public int Execute()
         {
             Console.WriteLine("Hello {0}!", Name);
-            return true;
+            return ReturnCode.Success;
         }
     }
 }

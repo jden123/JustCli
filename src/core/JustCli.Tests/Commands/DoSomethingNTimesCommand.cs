@@ -12,7 +12,7 @@ namespace JustCli.Tests.Commands
         [CommandArgument("r", "repeat", Description = "Number of repeats.", DefaultValue = 1)]
         public int Repeat { get; private set; }
 
-        public bool Execute()
+        public int Execute()
         {
             throw new NotImplementedException();
         }

@@ -13,14 +13,14 @@ namespace JustCli.Commands
             Output = output;
         }
 
-        public bool Execute()
+        public int Execute()
         {
             var commandsInfo = CommandRepository.GetCommandsInfo();
 
             if (commandsInfo.Count == 0)
             {
                 Output.WriteInfo("There are no commands.");
-                return true;
+                return ReturnCode.Success;
             }
 
             Output.WriteInfo("Command list:");
@@ -29,7 +29,7 @@ namespace JustCli.Commands
                 Output.WriteInfo(string.Format("{0} - {1}", commandInfo.Name, commandInfo.Description));
             }
 
-            return true;
+            return ReturnCode.Success;
         }
     }
 }

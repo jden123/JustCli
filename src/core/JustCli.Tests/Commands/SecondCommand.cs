@@ -4,7 +4,7 @@ namespace JustCli.Tests.Commands
 {
     public class SecondCommand : ICommand
     {
-        public bool Execute()
+        public int Execute()
         {
             throw new NotImplementedException();
         }

@@ -8,7 +8,7 @@ namespace JustCli.Tests.Commands
         [CommandArgument("a", "action", DefaultValue = "default")]
         public string Action { get; private set; }
 
-        public bool Execute()
+        public int Execute()
         {
             throw new NotImplementedException();
         }

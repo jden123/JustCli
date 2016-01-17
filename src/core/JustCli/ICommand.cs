@@ -2,6 +2,6 @@
 {
     public interface ICommand
     {
-        bool Execute();
+        int Execute();
     }
 }

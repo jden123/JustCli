@@ -6,7 +6,7 @@ namespace JustCli.Tests.Commands
     [Command("ex", "Throws exception.")]
     public class ThrowExceptionCommand : ICommand
     {
-        public bool Execute()
+        public int Execute()
         {
             throw new Exception("exception!");
         }

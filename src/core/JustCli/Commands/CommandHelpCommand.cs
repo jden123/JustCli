@@ -14,7 +14,7 @@ namespace JustCli.Commands
            Output = output;
        }
 
-       public bool Execute()
+       public int Execute()
        {
            var helpStringBuilder = new StringBuilder();
 
@@ -59,7 +59,7 @@ namespace JustCli.Commands
                Output.WriteInfo(propertyHelpStringBuilder.ToString());
            }
 
-           return true;
+           return ReturnCode.Success;
        }
    }
 }

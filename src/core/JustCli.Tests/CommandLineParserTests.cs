@@ -160,5 +160,12 @@ namespace JustCli.Tests
            string[] args = new[] { "ex" };
            Assert.DoesNotThrow(() => _commandLineParser.ParseAndExecuteCommand(args));
         }
+
+        [Test]
+        public void ParserShouldReturnFailureOnException()
+        {
+           string[] args = new[] { "ex" };
+           Assert.AreEqual(ReturnCode.Failure, _commandLineParser.ParseAndExecuteCommand(args));
+        }
     }
 }

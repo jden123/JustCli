@@ -75,7 +75,7 @@ namespace JustCli
 
             try
             {
-                return command.Execute() ? 0 : 1;
+                return command.Execute();
             }
             catch (Exception e)
             {
