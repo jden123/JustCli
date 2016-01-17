@@ -11,10 +11,10 @@ Example
 Let’s create a “*sayhello*” command.
 First of all we need a console application with JustCli entry point.
 ```csharp
-  static int Main(string[] args)
-  {
-      return CommandLineParser.Default.ParseAndExecuteCommand(args);
-  }
+static int Main(string[] args)
+{
+    return CommandLineParser.Default.ParseAndExecuteCommand(args);
+}
 ```
 Create SayHelloCommand class and implement command logic.
 ```csharp
