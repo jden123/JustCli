@@ -188,3 +188,5 @@ $RECYCLE.BIN/
 
 # publish.bat
 publish.bat
+
+/packages/*
