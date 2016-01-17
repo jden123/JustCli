@@ -16,9 +16,12 @@ namespace JustCli
 
         public static CommandLineParser Default { get { return defaultParser.Value; } }
 
+        private IOutput Output { get; set; }
+
         public CommandLineParser(ICommandRepository commandRepository)
         {
             CommandRepository = commandRepository;
+            Output = new ColoredConsoleOutput();
         }
 
         public ICommand ParseCommand(string[] args)
@@ -39,14 +42,14 @@ namespace JustCli
             var commandType = CommandRepository.GetCommandType(commandName);
             if (commandType == null)
             {
-                Console.WriteLine("Command does not exist.");
+                Output.WriteError("Command does not exist.");
                 return CreateDefaultCommand();
             }
 
             // NOTE: special case like cmd.exe do -?.
             if (args.Length > 1 && HelpCommandAliases.Contains(args[1]))
             {
-                return new CommandHelpCommand(commandType, new ConsoleOutput());
+                return new CommandHelpCommand(commandType, Output);
             }
 
             try
@@ -55,7 +58,8 @@ namespace JustCli
             }
             catch (Exception e)
             {
-                Console.WriteLine(string.Format("Cannot setup [{0}] command.", commandName));
+                var message = string.Format("Cannot setup [{0}] command.", commandName);
+                Output.WriteError(message);
                 return null;
 
                 // NOTE: we can show command help. Do we need?
@@ -79,14 +83,14 @@ namespace JustCli
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Output.WriteError(e.Message);
                 return 1;
             }
         }
 
         private CommandLineHelpCommand CreateDefaultCommand()
         {
-            return new CommandLineHelpCommand(CommandRepository, new ConsoleOutput());
+            return new CommandLineHelpCommand(CommandRepository, Output);
         }
     }
 }
