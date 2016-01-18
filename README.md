@@ -47,7 +47,7 @@ Also you can get help for a special command.
 cmd> TestApp.exe sayhello ? 
 sayhello - Prints a greeting.
 Options:
-  -n  --name  The someone to greet. [default: World]
+  -n  --name  [string]  The someone to greet. [default: World]
 ```
 That is what JustCli makes for you.
 
