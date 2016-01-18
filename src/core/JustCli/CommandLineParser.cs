@@ -54,7 +54,7 @@ namespace JustCli
 
             try
             {
-                return CommandActivator.CreateCommand(commandType, args);
+                return CommandActivator.CreateCommand(commandType, args, Output);
             }
             catch (Exception e)
             {

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ArgumentInfo.cs" />
     <Compile Include="AssemblyCommandRepository.cs" />
+    <Compile Include="Attributes\CommandOutputAttribute.cs" />
     <Compile Include="Attributes\CommandArgumentAttribute.cs" />
     <Compile Include="Attributes\CommandAttribute.cs" />
     <Compile Include="CommandActivator.cs" />

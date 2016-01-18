@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using JustCli.Attributes;
 
 namespace JustCli.TestApp.Commands
@@ -10,16 +9,19 @@ namespace JustCli.TestApp.Commands
         // NOTE: it's required.
         [CommandArgument("f", "file", Description = "File path.")]
         public string FilePath { get; set; }
+        
+        [CommandOutput]
+        public IOutput Output { get; set; }
 
         public int Execute()
         {
             if (!File.Exists(FilePath))
             {
-                Console.WriteLine("The file[{0}] does not exist. Please check the file path.", FilePath);
+                Output.WriteError(string.Format("The file[{0}] does not exist. Please check the file path.", FilePath));
                 return ReturnCode.Failure;
             }
 
-            Console.WriteLine("Utc file creation time is {0}", File.GetCreationTimeUtc(FilePath));
+            Output.WriteSuccess(string.Format("Utc file creation time is {0}", File.GetCreationTimeUtc(FilePath)));
             return ReturnCode.Success;
         }
     }

@@ -8,10 +8,13 @@ namespace JustCli.TestApp.Commands
     {
         [CommandArgument("u", "utc", false, "true for utc time, otherwise, false.")]
         public bool ShowUtc { get; set; }
+        
+        [CommandOutput]
+        public IOutput Output { get; set; }
 
         public int Execute()
         {
-            Console.WriteLine(ShowUtc
+            Output.WriteInfo(ShowUtc
                 ? string.Format("Utc time is {0}", DateTime.UtcNow)
                 : string.Format("Local time is {0}", DateTime.Now));
 

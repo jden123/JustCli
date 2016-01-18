@@ -8,6 +8,9 @@ namespace JustCli.Tests.Commands
         [CommandArgument("a", "action", DefaultValue = "default")]
         public string Action { get; private set; }
 
+        [CommandOutput]
+        public IOutput Output { get; set; }
+
         public int Execute()
         {
             throw new NotImplementedException();

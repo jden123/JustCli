@@ -30,7 +30,8 @@ namespace JustCli
 
         public static List<CommandArgumentAttribute> GetCommandArgumentInfos(Type commandType)
         {
-            var commandArgumentPropertyInfos = commandType.GetProperties()
+            var commandArgumentPropertyInfos = commandType
+                .GetProperties()
                 .Select(p => p.GetCustomAttributes(typeof (CommandArgumentAttribute), true).FirstOrDefault())
                 .Where(a => a != null)
                 .Cast<CommandArgumentAttribute>()
@@ -60,6 +61,31 @@ namespace JustCli
                 DescriptionName = commandArgumentAttribute.Description,
                 DefaultValue = commandArgumentAttribute.DefaultValue,
             };
+        }
+
+        public static bool SetOutputProperty(object command, IOutput output)
+        {
+            var outputProperties = GetOutputProperty(command.GetType());
+            if (outputProperties.Length == 0)
+            {
+                return false;
+            }
+
+            foreach (var outputProperty in outputProperties)
+            {
+                outputProperty.SetValue(command, output, null);
+            }
+
+            return true;
+        }
+
+        private static PropertyInfo[] GetOutputProperty(Type commandType)
+        {
+            return commandType
+                .GetProperties()
+                .Where(p => p.PropertyType == typeof(IOutput) && 
+                            p.GetCustomAttributes(typeof (CommandOutputAttribute), true).Length > 0)
+                .ToArray();
         }
     }
 }

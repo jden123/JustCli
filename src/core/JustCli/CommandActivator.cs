@@ -4,11 +4,13 @@ namespace JustCli
 {
     public class CommandActivator
     {
-        public static ICommand CreateCommand(Type commandType, string[] args)
+        public static ICommand CreateCommand(Type commandType, string[] args, IOutput output)
         {
             var commandArgumentPropertyInfos = CommandMetaDataHelper.GetCommandArgumentPropertyInfos(commandType);
 
             var command = (ICommand)Activator.CreateInstance(commandType);
+
+            CommandMetaDataHelper.SetOutputProperty(command, output);
 
             var commandContext = new CommandContext(args);
 
