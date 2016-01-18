@@ -24,13 +24,18 @@ class SayHelloCommand : ICommand
     [CommandArgument("n", "name", Description = "The someone to greet.", DefaultValue = "World")]
     public string Name { get; set; }
 
-	public int Execute()
-	{
-	    Console.WriteLine("Hello {0}!", Name);
-	    return ReturnCode.Success;
-	}
+    [CommandOutput]
+    public IOutput Output { get; set; }
+
+    public int Execute()
+    {
+        Console.WriteLine("Hello {0}!", Name);
+        return ReturnCode.Success;
+    }
 }
 ```
+CommandOutput attribute marks property where the common output is injected. Colored console is used by default.
+
 When run the command line tool we can see command list.
 ```
 cmd> TestApp.exe
