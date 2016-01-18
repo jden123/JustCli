@@ -29,7 +29,7 @@ class SayHelloCommand : ICommand
 
     public int Execute()
     {
-        Console.WriteLine("Hello {0}!", Name);
+        Output.WriteInfo("Hello {0}!", Name);
         return ReturnCode.Success;
     }
 }
