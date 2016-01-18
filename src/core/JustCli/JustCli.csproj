@@ -39,14 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArgumentInfo.cs" />
+    <Compile Include="Dto\ArgumentInfo.cs" />
     <Compile Include="AssemblyCommandRepository.cs" />
     <Compile Include="Attributes\CommandOutputAttribute.cs" />
     <Compile Include="Attributes\CommandArgumentAttribute.cs" />
     <Compile Include="Attributes\CommandAttribute.cs" />
     <Compile Include="CommandActivator.cs" />
     <Compile Include="CommandContext.cs" />
-    <Compile Include="CommandInfo.cs" />
+    <Compile Include="Dto\CommandInfo.cs" />
     <Compile Include="CommandLineParser.cs" />
     <Compile Include="CommandMetaDataHelper.cs" />
     <Compile Include="Commands\CommandHelpCommand.cs" />

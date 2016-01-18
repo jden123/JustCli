@@ -22,6 +22,7 @@ namespace JustCli
                                 commandArgumentAttribute, 
                                 commandArgumentPropertyInfo.PropertyType);
 
+                // TODO: 
                 commandArgumentPropertyInfo.SetValue(command, value, null);
             }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using JustCli.Attributes;
+using JustCli.Dto;
 
 namespace JustCli
 {
@@ -28,16 +29,30 @@ namespace JustCli
             return commandInfo;
         }
 
-        public static List<CommandArgumentAttribute> GetCommandArgumentInfos(Type commandType)
+        public static List<ArgumentInfo> GetCommandArgumentInfos(Type commandType)
         {
-            var commandArgumentPropertyInfos = commandType
-                .GetProperties()
-                .Select(p => p.GetCustomAttributes(typeof (CommandArgumentAttribute), true).FirstOrDefault())
-                .Where(a => a != null)
-                .Cast<CommandArgumentAttribute>()
-                .ToList();
+            var commandArgumentInfos = new List<ArgumentInfo>();
+            foreach (var propertyInfo in commandType.GetProperties())
+            {
+                var attribute = propertyInfo.GetCustomAttributes(typeof(CommandArgumentAttribute), true).FirstOrDefault();
+                if (attribute == null)
+                {
+                    continue;
+                }
 
-            return commandArgumentPropertyInfos;
+                var commandArgumentAttribute = (CommandArgumentAttribute) attribute;
+
+                commandArgumentInfos.Add(new ArgumentInfo()
+                {
+                    ShortName = commandArgumentAttribute.ShortName, 
+                    LongName = commandArgumentAttribute.LongName, 
+                    Description = commandArgumentAttribute.Description, 
+                    DefaultValue = commandArgumentAttribute.DefaultValue,
+                    ArgumentType = propertyInfo.PropertyType
+                });
+            }
+
+            return commandArgumentInfos;
         }
 
         public static IEnumerable<PropertyInfo> GetCommandArgumentPropertyInfos(Type commandType)
@@ -58,7 +73,7 @@ namespace JustCli
             {
                 ShortName = commandArgumentAttribute.ShortName,
                 LongName = commandArgumentAttribute.LongName,
-                DescriptionName = commandArgumentAttribute.Description,
+                Description = commandArgumentAttribute.Description,
                 DefaultValue = commandArgumentAttribute.DefaultValue,
             };
         }

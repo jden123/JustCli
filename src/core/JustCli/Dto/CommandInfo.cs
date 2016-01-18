@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace JustCli
+namespace JustCli.Dto
 {
     public class CommandInfo
     {

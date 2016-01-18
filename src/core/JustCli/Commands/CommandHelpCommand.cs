@@ -46,6 +46,8 @@ namespace JustCli.Commands
                    propertyHelpStringBuilder.AppendFormat("{0}--{1}", likeTabSeparator, argumentInfo.LongName);
                }
 
+               propertyHelpStringBuilder.AppendFormat("{0}[{1}]", likeTabSeparator, argumentInfo.ArgumentType.Name.ToLower());
+
                if (!string.IsNullOrWhiteSpace(argumentInfo.Description))
                {
                    propertyHelpStringBuilder.AppendFormat("{0}{1}", likeTabSeparator, argumentInfo.Description);

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using JustCli.Dto;
 
 namespace JustCli
 {
