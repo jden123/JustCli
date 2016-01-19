@@ -1,3 +1,6 @@
+## New in 0.0.4 (Released 2016/01/19)
++ CommandOutput attribute. It allows to inject common output to the command.
+
 ## New in 0.0.3 (Released 2016/01/17)
 * A command returns exit code.
 + Colored console output.
