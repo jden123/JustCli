@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JustCli.Attributes;
 using JustCli.Commands;
 using JustCli.Dto;
 
@@ -37,11 +38,9 @@ namespace JustCli
                 {
                     // TODO:
                     if (type.GetInterfaces().Contains(typeof (ICommand)) && 
-                        !type.IsAbstract && !type.IsInterface &&
-
-                        // skip internal commands
-                        type != typeof(CommandLineHelpCommand) &&
-                        type != typeof(CommandHelpCommand))
+                        !type.IsAbstract &&
+                        !type.IsInterface &&
+                        type.GetCustomAttributes(typeof(CommandAttribute), true).Length > 0)
                     {
                         var commandInfo = CommandMetaDataHelper.GetCommandInfo(type);
                         if (result.ContainsKey(commandInfo.Name))

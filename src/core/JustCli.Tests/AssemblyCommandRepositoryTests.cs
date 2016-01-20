@@ -19,14 +19,13 @@ namespace JustCli.Tests
         }
 
         [Test]
-        public void AssemblyCommandRepositoryShouldUseCommandClassNameIfNameIsNotSet()
+        public void AssemblyCommandRepositoryShouldNotUseCommandWithoutCommandAttribute()
         {
             var assemblyCommandRepository = new AssemblyCommandRepository();
 
             var commandType = assemblyCommandRepository.GetCommandType("SecondCommand");
 
-            Assert.IsNotNull(commandType);
-            Assert.AreEqual(typeof(SecondCommand), commandType);
+            Assert.IsNull(commandType);
         }
 
         [Test]
@@ -34,10 +33,10 @@ namespace JustCli.Tests
         {
             var assemblyCommandRepository = new AssemblyCommandRepository();
 
-            var commandType = assemblyCommandRepository.GetCommandType("secondcommand");
+            var commandType = assemblyCommandRepository.GetCommandType("COMmand1");
 
             Assert.IsNotNull(commandType);
-            Assert.AreEqual(typeof(SecondCommand), commandType);
+            Assert.AreEqual(typeof(FirstCommand), commandType);
         }
 
         [Test]
