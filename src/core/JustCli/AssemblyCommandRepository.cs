@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JustCli.Attributes;
-using JustCli.Commands;
 using JustCli.Dto;
 
 namespace JustCli

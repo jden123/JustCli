@@ -1,5 +1,4 @@
-﻿using System;
-using JustCli.Commands;
+﻿using JustCli.Commands;
 using JustCli.Tests.Commands;
 using NSubstitute;
 using NUnit.Framework;
