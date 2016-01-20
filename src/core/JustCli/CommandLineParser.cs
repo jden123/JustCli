@@ -63,8 +63,8 @@ namespace JustCli
             }
             catch (Exception e)
             {
-                var message = string.Format("Cannot setup [{0}] command.", commandName);
-                Output.WriteError(message);
+                Output.WriteError(string.Format("Cannot setup [{0}] command.", commandName));
+                Output.WriteError(e.Message);
                 return null;
 
                 // NOTE: we can show command help. Do we need?
