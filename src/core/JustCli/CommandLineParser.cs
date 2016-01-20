@@ -11,17 +11,22 @@ namespace JustCli
 
         public ICommandRepository CommandRepository { get; set; }
 
-        private static readonly Lazy<CommandLineParser> defaultParser = 
-           new Lazy<CommandLineParser>(() => new CommandLineParser(new AssemblyCommandRepository()));
+        private static readonly Lazy<CommandLineParser> defaultParser =
+           new Lazy<CommandLineParser>(
+               () =>
+                   {
+                       var output = new ColoredConsoleOutput();
+                       return new CommandLineParser(new AssemblyCommandRepository(output), output);
+                   });
 
         public static CommandLineParser Default { get { return defaultParser.Value; } }
 
         private IOutput Output { get; set; }
 
-        public CommandLineParser(ICommandRepository commandRepository)
+        public CommandLineParser(ICommandRepository commandRepository, IOutput output = null)
         {
             CommandRepository = commandRepository;
-            Output = new ColoredConsoleOutput();
+            Output = output ?? new ColoredConsoleOutput();
         }
 
         public ICommand ParseCommand(string[] args)

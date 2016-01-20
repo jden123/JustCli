@@ -8,17 +8,19 @@ namespace JustCli
 {
     public class AssemblyCommandRepository : ICommandRepository
     {
+        private IOutput Output { get; set; }
         private readonly Dictionary<string, CommandInfo> commandNameToTypeMapping;
 
-        public AssemblyCommandRepository()
+        public AssemblyCommandRepository(IOutput output = null)
         {
+            Output = output;
             commandNameToTypeMapping = FindCommands();
         }
 
         public Type GetCommandType(string commandName)
         {
-            return commandNameToTypeMapping.ContainsKey(commandName.ToLower()) 
-                ? commandNameToTypeMapping[commandName.ToLower()].Type 
+            return commandNameToTypeMapping.ContainsKey(commandName.ToLower())
+                ? commandNameToTypeMapping[commandName.ToLower()].Type
                 : null;
         }
 
@@ -27,34 +29,38 @@ namespace JustCli
             return commandNameToTypeMapping.Select(commandPair => commandPair.Value).ToList();
         }
 
-        public Dictionary<string, CommandInfo> FindCommands()
+        private Dictionary<string, CommandInfo> FindCommands()
         {
             var result = new Dictionary<string, CommandInfo>();
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (var type in assembly.GetTypes())
+                foreach (var type in assembly.GetTypes().Where(TypeIsCommand))
                 {
-                    // TODO:
-                    if (type.GetInterfaces().Contains(typeof (ICommand)) && 
-                        !type.IsAbstract &&
-                        !type.IsInterface &&
-                        type.GetCustomAttributes(typeof(CommandAttribute), true).Length > 0)
+                    var commandInfo = CommandMetaDataHelper.GetCommandInfo(type);
+                    if (result.ContainsKey(commandInfo.Name))
                     {
-                        var commandInfo = CommandMetaDataHelper.GetCommandInfo(type);
-                        if (result.ContainsKey(commandInfo.Name))
+                        if (Output != null)
                         {
-                            // warning
+                            Output.WriteWarning(string.Format("Command with name [{0}]({1}) already exists.", commandInfo.Name, type.FullName));
                         }
-                        else
-                        {
-                            result[commandInfo.Name] = commandInfo;
-                        }
+                    }
+                    else
+                    {
+                        result[commandInfo.Name] = commandInfo;
                     }
                 }
             }
 
             return result;
+        }
+
+        private static bool TypeIsCommand(Type type)
+        {
+            return type.GetInterfaces().Contains(typeof(ICommand)) &&
+                   !type.IsAbstract &&
+                   !type.IsInterface &&
+                   type.GetCustomAttributes(typeof(CommandAttribute), true).Length > 0;
         }
     }
 }
