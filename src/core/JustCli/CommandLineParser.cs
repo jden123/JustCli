@@ -79,7 +79,7 @@ namespace JustCli
             // NOTE: the error code should send the command.
             if (command == null)
             {
-                return 1;
+                return ReturnCode.Failure;
             }
 
             try
@@ -89,7 +89,7 @@ namespace JustCli
             catch (Exception e)
             {
                 Output.WriteError(e.Message);
-                return 1;
+                return ReturnCode.Failure;
             }
         }
 

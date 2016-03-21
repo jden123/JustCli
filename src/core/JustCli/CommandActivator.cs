@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace JustCli
 {
@@ -14,16 +15,29 @@ namespace JustCli
 
             var commandContext = new CommandContext(args);
 
+            var errors = new List<string>();
             foreach (var commandArgumentPropertyInfo in commandArgumentPropertyInfos)
             {
-                var commandArgumentAttribute = CommandMetaDataHelper.GetArgumentInfo(commandArgumentPropertyInfo);
+                try
+                {
+                    var commandArgumentAttribute = CommandMetaDataHelper.GetArgumentInfo(commandArgumentPropertyInfo);
 
-                var value = commandContext.GetArgValue(
-                                commandArgumentAttribute, 
-                                commandArgumentPropertyInfo.PropertyType);
+                    var value = commandContext.GetArgValue(
+                        commandArgumentAttribute, 
+                        commandArgumentPropertyInfo.PropertyType);
 
-                // TODO: 
-                commandArgumentPropertyInfo.SetValue(command, value, null);
+                    // TODO: 
+                    commandArgumentPropertyInfo.SetValue(command, value, null);
+                }
+                catch (Exception e)
+                {
+                    errors.Add(e.Message);
+                }
+            }
+
+            if (errors.Count > 0)
+            {
+                throw new Exception(string.Join(Environment.NewLine, errors));
             }
 
             return command;

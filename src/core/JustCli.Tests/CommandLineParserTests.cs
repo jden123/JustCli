@@ -1,4 +1,5 @@
-﻿using JustCli.Commands;
+﻿using System.Linq;
+using JustCli.Commands;
 using JustCli.Tests.Commands;
 using NSubstitute;
 using NUnit.Framework;
@@ -82,7 +83,7 @@ namespace JustCli.Tests
 
             Assert.IsInstanceOf<DoSomethingCommand>(command);
 
-            var doSomethingCommand = (DoSomethingCommand) command;
+            var doSomethingCommand = (DoSomethingCommand)command;
             Assert.AreEqual("something", doSomethingCommand.Action);
         }
 
@@ -98,7 +99,7 @@ namespace JustCli.Tests
 
             Assert.IsInstanceOf<DoSomethingCommand>(command);
 
-            var doSomethingCommand = (DoSomethingCommand) command;
+            var doSomethingCommand = (DoSomethingCommand)command;
             Assert.AreEqual("something", doSomethingCommand.Action);
         }
 
@@ -146,25 +147,36 @@ namespace JustCli.Tests
         [TestCase("--help")]
         public void ParserShouldReturnCommandHelpCommandForHelpCommand(string helpArg)
         {
-           string[] args = new[] { "dosomething-ntimes", helpArg };
+            string[] args = new[] { "dosomething-ntimes", helpArg };
 
-           var command = _commandLineParser.ParseCommand(args);
+            var command = _commandLineParser.ParseCommand(args);
 
-           Assert.IsInstanceOf<CommandHelpCommand>(command);
+            Assert.IsInstanceOf<CommandHelpCommand>(command);
         }
 
         [Test]
         public void ParserShouldCatchCommandException()
         {
-           string[] args = new[] { "ex" };
-           Assert.DoesNotThrow(() => _commandLineParser.ParseAndExecuteCommand(args));
+            string[] args = new[] { "ex" };
+            Assert.DoesNotThrow(() => _commandLineParser.ParseAndExecuteCommand(args));
         }
 
         [Test]
         public void ParserShouldReturnFailureOnException()
         {
-           string[] args = new[] { "ex" };
-           Assert.AreEqual(ReturnCode.Failure, _commandLineParser.ParseAndExecuteCommand(args));
+            string[] args = new[] { "ex" };
+            Assert.AreEqual(ReturnCode.Failure, _commandLineParser.ParseAndExecuteCommand(args));
+        }
+
+        [Test]
+        public void ParserShouldReturnFailureOnException11()
+        {
+            string[] args = new[] { "dosomething-ntimes", "-r", "d" };
+            var memoryOutput = new MemoryOutput();
+            var commandLineParser = new CommandLineParser(_commandRepository, memoryOutput);
+            Assert.AreEqual(ReturnCode.Failure, commandLineParser.ParseAndExecuteCommand(args));
+            Assert.True(memoryOutput.Content.Any(l => l.Contains("action")));
+            Assert.True(memoryOutput.Content.Any(l => l.Contains("repeat")));
         }
     }
 }
