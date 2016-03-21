@@ -1,4 +1,5 @@
 using System;
+using JustCli.Helpers;
 
 namespace JustCli.Outputs
 {
@@ -22,6 +23,11 @@ namespace JustCli.Outputs
         public void WriteError(string message)
         {
             Console.WriteLine(message);
+
+            if (ConsoleHelper.IsConsoleOutputRedirected())
+            {
+                Console.Error.WriteLine(message);
+            }
         }
 
         public void WriteError(string message, Exception e)
