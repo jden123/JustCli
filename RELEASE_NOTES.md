@@ -1,3 +1,8 @@
+## New in 0.0.5 (Released 2016/03/24)
++ Flags are supported.
++ Error message shows details.
++ Errors are shown on error output.
+
 ## New in 0.0.4 (Released 2016/01/19)
 + CommandOutput attribute. It allows to inject common output to the command.
 
