@@ -72,7 +72,7 @@ namespace JustCli
             {
                 if (defaultValue == null)
                 {
-                    throw new Exception(string.Format("The argument[{0}] is not presented in command line.", longName));
+                    throw new Exception(string.Format("The argument [{0}] is not presented in command line.", longName));
                 }
                 
                 return defaultValue;
@@ -85,10 +85,18 @@ namespace JustCli
             {
                 return true;
             }
-            
-            var value = ConvertFromString(stringValue, propertyType);
 
-            return value;
+            try
+            {
+                var value = ConvertFromString(stringValue, propertyType);
+                return value;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(string.Format(
+                    "The argument [{0}] is not set up. The value [{1}] cannot be cast to [{2}].", 
+                    longName, stringValue, propertyType.Name));
+            }
         }
 
         // TODO: try method and write down an error message

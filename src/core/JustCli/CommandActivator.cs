@@ -21,10 +21,7 @@ namespace JustCli
                 try
                 {
                     var commandArgumentAttribute = CommandMetaDataHelper.GetArgumentInfo(commandArgumentPropertyInfo);
-
                     var value = commandContext.GetArgValue(commandArgumentAttribute);
-
-                    // TODO: 
                     commandArgumentPropertyInfo.SetValue(command, value, null);
                 }
                 catch (Exception e)
