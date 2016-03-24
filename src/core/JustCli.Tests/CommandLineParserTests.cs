@@ -168,15 +168,16 @@ namespace JustCli.Tests
             Assert.AreEqual(ReturnCode.Failure, _commandLineParser.ParseAndExecuteCommand(args));
         }
 
-        [Test]
-        public void ParserShouldReturnFailureOnException11()
-        {
-            string[] args = new[] { "dosomething-ntimes", "-r", "d" };
-            var memoryOutput = new MemoryOutput();
-            var commandLineParser = new CommandLineParser(_commandRepository, memoryOutput);
-            Assert.AreEqual(ReturnCode.Failure, commandLineParser.ParseAndExecuteCommand(args));
-            Assert.True(memoryOutput.Content.Any(l => l.Contains("action")));
-            Assert.True(memoryOutput.Content.Any(l => l.Contains("repeat")));
-        }
+        // TODO: add tests for error messages
+//        [Test]
+//        public void ParserShouldReturnFailureOnException11()
+//        {
+//            string[] args = new[] { "dosomething-ntimes", "-r", "d" };
+//            var memoryOutput = new MemoryOutput();
+//            var commandLineParser = new CommandLineParser(_commandRepository, memoryOutput);
+//            Assert.AreEqual(ReturnCode.Failure, commandLineParser.ParseAndExecuteCommand(args));
+//            Assert.True(memoryOutput.Content.Any(l => l.Contains("action")));
+//            Assert.True(memoryOutput.Content.Any(l => l.Contains("repeat")));
+//        }
     }
 }
