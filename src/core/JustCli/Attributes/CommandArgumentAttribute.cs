@@ -2,6 +2,7 @@
 
 namespace JustCli.Attributes
 {
+    // one attribute per property
     [AttributeUsage(AttributeTargets.Property)]
     public class CommandArgumentAttribute : Attribute
     {

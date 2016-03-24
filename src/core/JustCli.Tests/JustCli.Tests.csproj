@@ -53,6 +53,7 @@
     <Compile Include="CommandHelpCommandTests.cs" />
     <Compile Include="CommandLineHelpCommandTests.cs" />
     <Compile Include="CommandLineParserTests.cs" />
+    <Compile Include="CommandContextTests.cs" />
     <Compile Include="CommandMetaDataHelperTests.cs" />
     <Compile Include="Commands\ThrowExceptionCommand.cs" />
     <Compile Include="Commands\DoSomethingCommand.cs" />
