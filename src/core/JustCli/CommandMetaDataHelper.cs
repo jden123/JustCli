@@ -75,6 +75,7 @@ namespace JustCli
                 LongName = commandArgumentAttribute.LongName,
                 Description = commandArgumentAttribute.Description,
                 DefaultValue = commandArgumentAttribute.DefaultValue,
+                ArgumentType = commandArgumentPropertyInfo.PropertyType
             };
         }
 
