@@ -1,3 +1,6 @@
+## New in 1.0.0 (Released 2016/11/20)
+* Version 1
+
 ## New in 0.0.5 (Released 2016/03/24)
 + Flags are supported.
 + Error message shows details.
