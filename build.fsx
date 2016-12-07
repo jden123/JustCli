@@ -75,6 +75,8 @@ Target "CreateNuget" (fun _ ->
    let nugetDoPublish = nugetAccessKey.Equals "" |> not
    let nugetPublishUrl = getBuildParamOrDefault "nugetserver" "https://nuget.org"
 
+   let tags = ["CLI";"commandline";"console";"utility";"command";"tool";"arguments";"args";"parser"]
+
    //  Create/Publish the nuget package
    NuGet (fun app ->
          {app with
@@ -82,6 +84,7 @@ Target "CreateNuget" (fun _ ->
             Project = "JustCli"
             Version = release.NugetVersion
             ReleaseNotes = release.Notes |> toLines
+            Tags = tags |> String.concat " "
             AccessKey = nugetAccessKey
             Publish = nugetDoPublish
             PublishUrl = nugetPublishUrl

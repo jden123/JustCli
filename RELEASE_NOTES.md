@@ -1,3 +1,6 @@
+## New in 1.0.1 (Released 2016/12/07)
+* Tags were added
+
 ## New in 1.0.0 (Released 2016/11/20)
 * Version 1
 
