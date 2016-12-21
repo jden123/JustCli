@@ -5,6 +5,11 @@ namespace JustCli.Outputs
 {
     public class ColoredConsoleOutput : IOutput
     {
+        public ColoredConsoleOutput()
+        {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+        }
+
         public void WriteInfo(string message)
         {
             Console.WriteLine(message);
