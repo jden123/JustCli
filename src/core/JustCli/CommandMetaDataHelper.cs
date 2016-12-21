@@ -22,6 +22,7 @@ namespace JustCli
             {
                 commandInfo.Name = commandAttribute.CommandName.ToLower();
                 commandInfo.Description = commandAttribute.CommandDescription;
+                commandInfo.Order = commandAttribute.Order;
             }
 
             commandInfo.Type = type;

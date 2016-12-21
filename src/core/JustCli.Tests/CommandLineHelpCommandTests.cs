@@ -51,5 +51,27 @@ namespace JustCli.Tests
 
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("There are no commands.")));
         }
+
+        [Test]
+        public void CommandLineHelpCommandShouldUseOrder()
+        {
+            var commandRepository = Substitute.For<ICommandRepository>();
+            commandRepository.GetCommandsInfo()
+                .Returns(new List<CommandInfo>()
+                {
+                    new CommandInfo() {Name = "command1", Description = "The first command.", Order = 2},
+                    new CommandInfo() {Name = "command2", Order = 1},
+                });
+
+            var memoryOutput = new MemoryOutput();
+            var commandLineHelpCommand = new CommandLineHelpCommand(commandRepository, memoryOutput);
+
+            commandLineHelpCommand.Execute();
+
+            var command1position = memoryOutput.Content.IndexOf(memoryOutput.Content.First(l => l.Contains("command1")));
+            var command2position = memoryOutput.Content.IndexOf(memoryOutput.Content.First(l => l.Contains("command2")));
+
+            Assert.IsTrue(command1position > command2position);
+        }
     }
 }

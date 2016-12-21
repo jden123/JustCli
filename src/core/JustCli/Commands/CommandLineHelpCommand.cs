@@ -24,7 +24,7 @@ namespace JustCli.Commands
             }
 
             Output.WriteInfo("Command list:");
-            foreach (var commandInfo in commandsInfo.OrderBy(i => i.Name))
+            foreach (var commandInfo in commandsInfo.OrderBy(i => i.Order).ThenBy(i => i.Name))
             {
                 Output.WriteInfo(string.Format("{0} - {1}", commandInfo.Name, commandInfo.Description));
             }
