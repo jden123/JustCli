@@ -1,3 +1,7 @@
+## New in 1.1.1 (Released 2016/12/21)
+* Command order are supported
+* Console uses unicode encoding
+
 ## New in 1.0.1 (Released 2016/12/07)
 * Tags were added
 
