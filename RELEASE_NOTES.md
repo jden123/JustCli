@@ -1,3 +1,6 @@
+## New in 1.1.2 (Released 2016/12/24)
+* Include readme.txt
+
 ## New in 1.1.1 (Released 2016/12/21)
 * Command order are supported
 * Console uses unicode encoding

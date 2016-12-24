@@ -66,6 +66,8 @@ Target "BuildNugetPackage" (fun _ ->
     !! "src/core/JustCli/*.csproj"
       |> MSBuildRelease (nugetPackageDir @@ "lib") "Build"
       |> Log "NugetLib-Output: "
+
+    CopyFile nugetPackageDir "readme.txt"
 )
 
 Target "CreateNuget" (fun _ ->
