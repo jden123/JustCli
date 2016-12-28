@@ -1,3 +1,6 @@
+## New in 1.2.0 (Released 2016/12/28)
+* It's possible to set up datetime default value. For more information see issue#18.
+
 ## New in 1.1.2 (Released 2016/12/24)
 * Include readme.txt
 
