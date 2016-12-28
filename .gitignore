@@ -190,3 +190,5 @@ $RECYCLE.BIN/
 publish.bat
 
 /packages/*
+
+.idea
