@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using JustCli.Dto;
 
 namespace JustCli
@@ -74,7 +75,30 @@ namespace JustCli
                 {
                     throw new Exception(string.Format("The argument [{0}] is not presented in command line.", longName));
                 }
-                
+
+                // special case: we cannot set default value for datetime. Have to use string.
+                if (propertyType == typeof(DateTime) && defaultValue is string)
+                {
+                    var defaultValueString = (string) defaultValue;
+                    if (defaultValueString.ToLower() == "minvalue")
+                    {
+                        return DateTime.MinValue;
+                    }
+
+                    if (defaultValueString.ToLower() == "maxvalue")
+                    {
+                        return DateTime.MaxValue;
+                    }
+
+                    DateTime defaultValueDate;
+                    if (DateTime.TryParse(defaultValueString, CultureInfo.InvariantCulture, DateTimeStyles.None, out defaultValueDate))
+                    {
+                        return defaultValueDate;
+                    }
+
+                    throw new Exception(string.Format("Default value for The argument [{0}] is not valid.", longName));
+                }
+
                 return defaultValue;
             }
             

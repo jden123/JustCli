@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using JustCli.Commands;
 using JustCli.Tests.Commands;
 using NSubstitute;
@@ -17,6 +18,7 @@ namespace JustCli.Tests
             _commandRepository = Substitute.For<ICommandRepository>();
             _commandRepository.GetCommandType("dosomething").Returns(typeof(DoSomethingCommand));
             _commandRepository.GetCommandType("dosomething-ntimes").Returns(typeof(DoSomethingNTimesCommand));
+            _commandRepository.GetCommandType("DoSomethingWithDates").Returns(typeof(DoSomethingWithDatesCommand));
             _commandRepository.GetCommandType("ex").Returns(typeof(ThrowExceptionCommand));
 
             _commandLineParser = new CommandLineParser(_commandRepository);
@@ -118,6 +120,24 @@ namespace JustCli.Tests
             var doSomethingNTimesCommand = (DoSomethingNTimesCommand)command;
             Assert.AreEqual("something", doSomethingNTimesCommand.Action);
             Assert.AreEqual(5, doSomethingNTimesCommand.Repeat);
+        }
+
+        [Test]
+        public void ParserShouldSetupDateTimeDefaultValues()
+        {
+            string[] args = new[] { "DoSomethingWithDates" };
+
+            var command = _commandLineParser.ParseCommand(args);
+
+            Assert.IsNotNull(command);
+            Assert.IsInstanceOf<ICommand>(command);
+
+            Assert.IsInstanceOf<DoSomethingWithDatesCommand>(command);
+
+            var doSomethingWithDatesCommand = (DoSomethingWithDatesCommand)command;
+            Assert.AreEqual(DateTime.MinValue, doSomethingWithDatesCommand.MinDate);
+            Assert.AreEqual(DateTime.MaxValue, doSomethingWithDatesCommand.MaxDate);
+            Assert.AreEqual(new DateTime(1983, 10, 03), doSomethingWithDatesCommand.Date);
         }
 
         [Test]

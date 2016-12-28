@@ -55,6 +55,7 @@
     <Compile Include="CommandLineParserTests.cs" />
     <Compile Include="CommandContextTests.cs" />
     <Compile Include="CommandMetaDataHelperTests.cs" />
+    <Compile Include="Commands\DoSomethingWithDatesCommand.cs" />
     <Compile Include="Commands\ThrowExceptionCommand.cs" />
     <Compile Include="Commands\DoSomethingCommand.cs" />
     <Compile Include="Commands\DoSomethingNTimesCommand.cs" />
