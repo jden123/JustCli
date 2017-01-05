@@ -1,3 +1,6 @@
+## New in 1.2.1 (Released 2017/01/05)
+* Console does not use unicode encoding. Should be set in the tool if necessary. For more information see issue #17.
+
 ## New in 1.2.0 (Released 2016/12/28)
 * It's possible to set up datetime default value. For more information see issue#18.
 
