@@ -7,7 +7,8 @@ namespace JustCli.Outputs
     {
         public ColoredConsoleOutput()
         {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
+           // TODO: need to think
+//            Console.OutputEncoding = System.Text.Encoding.Unicode;
         }
 
         public void WriteInfo(string message)
