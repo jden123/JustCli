@@ -19,6 +19,7 @@ namespace JustCli.Tests
             _commandRepository.GetCommandType("dosomething").Returns(typeof(DoSomethingCommand));
             _commandRepository.GetCommandType("dosomething-ntimes").Returns(typeof(DoSomethingNTimesCommand));
             _commandRepository.GetCommandType("DoSomethingWithDates").Returns(typeof(DoSomethingWithDatesCommand));
+            _commandRepository.GetCommandType("DoSomethingWithGuids").Returns(typeof(DoSomethingWithGuidsCommand));
             _commandRepository.GetCommandType("ex").Returns(typeof(ThrowExceptionCommand));
 
             _commandLineParser = new CommandLineParser(_commandRepository);
@@ -123,24 +124,41 @@ namespace JustCli.Tests
         }
 
         [Test]
-        public void ParserShouldSetupDateTimeDefaultValues()
+        public void ParserShouldSetupGuidDefaultValues()
         {
-            string[] args = new[] { "DoSomethingWithDates" };
+            string[] args = new[] { "DoSomethingWithGuids" };
 
             var command = _commandLineParser.ParseCommand(args);
 
             Assert.IsNotNull(command);
             Assert.IsInstanceOf<ICommand>(command);
 
-            Assert.IsInstanceOf<DoSomethingWithDatesCommand>(command);
+            Assert.IsInstanceOf<DoSomethingWithGuidsCommand>(command);
 
-            var doSomethingWithDatesCommand = (DoSomethingWithDatesCommand)command;
-            Assert.AreEqual(DateTime.MinValue, doSomethingWithDatesCommand.MinDate);
-            Assert.AreEqual(DateTime.MaxValue, doSomethingWithDatesCommand.MaxDate);
-            Assert.AreEqual(new DateTime(1983, 10, 03), doSomethingWithDatesCommand.Date);
+            var doSomethingWithDatesCommand = (DoSomethingWithGuidsCommand)command;
+            Assert.AreEqual(Guid.Empty, doSomethingWithDatesCommand.Empty);
+            Assert.AreEqual(Guid.Parse("e0f5747e-956f-4b23-9c54-dd5a6b2cd05f"), doSomethingWithDatesCommand.Guid);
         }
 
-        [Test]
+       [Test]
+       public void ParserShouldSetupDateTimeDefaultValues()
+       {
+          string[] args = new[] { "DoSomethingWithDates" };
+
+          var command = _commandLineParser.ParseCommand(args);
+
+          Assert.IsNotNull(command);
+          Assert.IsInstanceOf<ICommand>(command);
+
+          Assert.IsInstanceOf<DoSomethingWithDatesCommand>(command);
+
+          var doSomethingWithDatesCommand = (DoSomethingWithDatesCommand)command;
+          Assert.AreEqual(DateTime.MinValue, doSomethingWithDatesCommand.MinDate);
+          Assert.AreEqual(DateTime.MaxValue, doSomethingWithDatesCommand.MaxDate);
+          Assert.AreEqual(new DateTime(1983, 10, 03), doSomethingWithDatesCommand.Date);
+       }
+
+       [Test]
         public void ParserShouldNotThrowErrorIfArgIsNotSet()
         {
             string[] args = new[] { "dosomething-ntimes" };

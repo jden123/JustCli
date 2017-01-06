@@ -99,6 +99,24 @@ namespace JustCli
                     throw new Exception(string.Format("Default value for The argument [{0}] is not valid.", longName));
                 }
 
+                // special case: we cannot set default value for GUID. Have to use string.
+                if (propertyType == typeof(Guid) && defaultValue is string)
+                {
+                    var defaultValueString = (string) defaultValue;
+                    if (defaultValueString.ToLower() == "empty")
+                    {
+                       return Guid.Empty;
+                    }
+
+                    Guid defaultValueGuid;
+                    if (Guid.TryParse(defaultValueString, out defaultValueGuid))
+                    {
+                        return defaultValueGuid;
+                    }
+
+                    throw new Exception(string.Format("Default value for The argument [{0}] is not valid.", longName));
+                }
+
                 return defaultValue;
             }
             
