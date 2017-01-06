@@ -1,3 +1,6 @@
+## New in 1.2.2 (Released 2017/01/06)
+* fix #19: support guid default values
+
 ## New in 1.2.1 (Released 2017/01/05)
 * Console does not use unicode encoding. Should be set in the tool if necessary. For more information see issue #17.
 
