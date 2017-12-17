@@ -192,3 +192,5 @@ publish.bat
 /packages/*
 
 .idea
+.vs
+/tools
