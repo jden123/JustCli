@@ -194,3 +194,4 @@ publish.bat
 .idea
 .vs
 /tools
+/nuget
