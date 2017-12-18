@@ -2,10 +2,12 @@ JustCli
 ===
 That’s just a quick way to create your own command line tool. 
 
-The idea is to have one command in one class. A set of attributes helps you to map command line arguments to the command class properties and provide additional information. JustCli scans your project, generates help and allows you to run any of the commands.
+The idea is to have one command in one class. A set of attributes helps you to map command line arguments to the command class properties and provide additional information. JustCli scans your project, generates help and allows you to run the commands.
+
 Download
 ---
 You can install it using [NuGet](https://www.nuget.org/packages/JustCli/).
+
 Example
 ---
 Let’s create a “*sayhello*” command.
