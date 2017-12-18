@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>JustCli</id>
-    <title>JustCli</title>
+    <title>JustCli. Command line parser.</title>
     <version>$version$</version>
     <authors>jden123</authors>
     <owners>jden123</owners>
@@ -12,6 +12,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>$releaseNotes$</releaseNotes>
     <copyright></copyright>
-    <tags>CLI, commandline, console, utility, command, tool, arguments, args, parser"</tags>
+    <tags>CLI, commandline, command line, console, utility, command, tool, arguments, args, parser</tags>
   </metadata>
 </package>
