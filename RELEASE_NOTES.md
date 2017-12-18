@@ -1,5 +1,8 @@
+## New in 2.0.0 (Released 2017/12/17)
+* .NET Standard 2.0 is supported.
+
 ## New in 1.2.2 (Released 2017/01/06)
-* fix #19: support guid default values
+* fix #19: support guid default values.
 
 ## New in 1.2.1 (Released 2017/01/05)
 * Console does not use unicode encoding. Should be set in the tool if necessary. For more information see issue #17.
@@ -8,17 +11,17 @@
 * It's possible to set up datetime default value. For more information see issue#18.
 
 ## New in 1.1.2 (Released 2016/12/24)
-* Include readme.txt
+* Include readme.txt.
 
 ## New in 1.1.1 (Released 2016/12/21)
-* Command order are supported
-* Console uses unicode encoding
+* Command order are supported.
+* Console uses unicode encoding.
 
 ## New in 1.0.1 (Released 2016/12/07)
-* Tags were added
+* Tags were added.
 
 ## New in 1.0.0 (Released 2016/11/20)
-* Version 1
+* Version 1.
 
 ## New in 0.0.5 (Released 2016/03/24)
 + Flags are supported.
