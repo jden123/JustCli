@@ -23,10 +23,13 @@ namespace JustCli
 
         private IOutput Output { get; set; }
 
+        public bool ShowExceptionStackTrace { get; set; }
+        
         public CommandLineParser(ICommandRepository commandRepository, IOutput output = null)
         {
             CommandRepository = commandRepository;
             Output = output ?? new ColoredConsoleOutput();
+            ShowExceptionStackTrace = false;
         }
 
         public ICommand ParseCommand(string[] args)
@@ -89,6 +92,11 @@ namespace JustCli
             catch (Exception e)
             {
                 Output.WriteError(e.Message);
+                if (ShowExceptionStackTrace)
+                {
+                    Output.WriteError(e.StackTrace);
+                }
+                
                 return ReturnCode.Failure;
             }
         }
