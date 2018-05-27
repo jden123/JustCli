@@ -1,3 +1,4 @@
+#tool nuget:?package=vswhere
 #tool "nuget:?package=NUnit.Runners&version=2.6.2"
 
 var target = Argument("target", "Default");
@@ -39,9 +40,16 @@ Task("Compile")
   .IsDependentOn("Restore-NuGet-Packages")
   .Does(() =>
 {
+  DirectoryPath buildToolsInstallation  = VSWhereProducts("Microsoft.VisualStudio.Product.BuildTools").FirstOrDefault();
+
+  if (buildToolsInstallation == null)
+  {
+    throw new Exception("Cannot find MSBuild.");
+  }
+
   var settings = new MSBuildSettings {
     Configuration = "Release",
-    ToolPath = "D:/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin/MSBuild.exe"
+    ToolPath = buildToolsInstallation.CombineWithFilePath("./MSBuild/15.0/Bin/MSBuild.exe")
   };
 
   MSBuild(justCliSlnPath, settings);
