@@ -1,3 +1,6 @@
+## New in 2.0.1.1 (Released 2018/05/27)
+* Update nuget package.
+
 ## New in 2.0.1 (Released 2018/01/16)
 * ShowExceptionStackTrace property was added for CommandLineParser class. Set it to true to see exception stack trace.
 

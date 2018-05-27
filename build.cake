@@ -2,6 +2,7 @@
 #tool "nuget:?package=NUnit.Runners&version=2.6.2"
 
 #addin "Cake.FileHelpers"
+#addin "Cake.Git"
 
 var target = Argument("target", "Default");
 var nugetKey = Argument("nugetKey", "");
@@ -16,6 +17,10 @@ var releaseFolder = root + Directory("src/core/JustCli/bin/Release");
 
 var nugetOutput = root + Directory("nuget");
 var nugetSource = nugetOutput + Directory("source");
+
+// variables
+ReleaseNotes releaseNotes;
+string version;
 
 Task("Default")
   .Does(() =>
@@ -36,11 +41,21 @@ Task("Restore-NuGet-Packages")
   NuGetRestore(justCliSlnPath);
 });
 
-Task("SetVersion")
+Task("ReadReleaseNotes")
   .Does(() => 
 {
-  var releaseNotes = ParseReleaseNotes("RELEASE_NOTES.md");
-  var version = releaseNotes.Version.ToString();
+  releaseNotes = ParseReleaseNotes("RELEASE_NOTES.md");
+  version = releaseNotes.Version.ToString();
+});
+
+Task("SetVersion")
+  .IsDependentOn("ReadReleaseNotes")
+  .Does(() => 
+{
+  if (releaseNotes == null)
+  {
+    throw new Exception("Release notes is empty. Call ReleaseNotes task first.");
+  }
 
   Information("Version: " + version);
 
@@ -98,13 +113,17 @@ Task("CreateNugetFolder")
 
 Task("CreateNuget")
   .Description("Creates Nuget")
+  .IsDependentOn("ReadReleaseNotes")
   .IsDependentOn("CreateNugetFolder")
   .Does(() =>
 {
-  var releaseNotes = ParseReleaseNotes("RELEASE_NOTES.md");
+  if (releaseNotes == null)
+  {
+    throw new Exception("Release notes is empty. Call ReleaseNotes task first.");
+  }
 
   var nuGetPackSettings = new NuGetPackSettings {
-    Version = releaseNotes.Version.ToString(),
+    Version = version,
     ReleaseNotes = releaseNotes.Notes.ToList(),
     OutputDirectory = nugetOutput + Directory("nuget"),
     BasePath = nugetSource,
@@ -116,13 +135,18 @@ Task("CreateNuget")
 
 Task("PublishNuget")
   .Description("Publish nuget")
+  .IsDependentOn("ReadReleaseNotes")
   .IsDependentOn("CreateNuget")
-  .Does(() => {
-    var nugetPackagePath = new DirectoryInfo(nugetOutput + Directory("nuget")).GetFiles("*.nupkg").LastOrDefault().FullName;
-    NuGetPush(nugetPackagePath, new NuGetPushSettings {
-      Source = "https://www.nuget.org/api/v2/package",
-      ApiKey = nugetKey
-    });
+  .Does(() => 
+{
+  var nugetPackagePath = new DirectoryInfo(nugetOutput + Directory("nuget")).GetFiles("*.nupkg").LastOrDefault().FullName;
+  NuGetPush(nugetPackagePath, new NuGetPushSettings {
+    Source = "https://www.nuget.org/api/v2/package",
+    ApiKey = nugetKey
   });
+
+  var versionTag = "v." + version;
+  GitTag(".", versionTag);
+});
 
 RunTarget(target);
