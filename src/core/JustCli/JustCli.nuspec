@@ -7,11 +7,12 @@
     <authors>jden123</authors>
     <owners>jden123</owners>
     <description>Just a quick way to create your own command line tool.</description>
+    <iconUrl>https://github.com/jden123/JustCli/raw/master/icon.png</iconUrl> 
     <licenseUrl>https://github.com/jden123/JustCli/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/jden123/JustCli</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>$releaseNotes$</releaseNotes>
     <copyright></copyright>
-    <tags>CLI, commandline, command line, console, utility, command, tool, arguments, args, parser</tags>
+    <tags>CLI commandline command line argument args option parser shell console utility tool library</tags>
   </metadata>
 </package>
