@@ -1,6 +1,8 @@
 #tool nuget:?package=vswhere
 #tool "nuget:?package=NUnit.Runners&version=2.6.2"
 
+#addin "Cake.FileHelpers"
+
 var target = Argument("target", "Default");
 var nugetKey = Argument("nugetKey", "");
 
@@ -32,6 +34,23 @@ Task("Restore-NuGet-Packages")
   .Does(() =>
 {
   NuGetRestore(justCliSlnPath);
+});
+
+Task("SetVersion")
+  .Does(() => 
+{
+  var releaseNotes = ParseReleaseNotes("RELEASE_NOTES.md");
+  var version = releaseNotes.Version.ToString();
+
+  Information("Version: " + version);
+
+  ReplaceRegexInFiles("./src/core/JustCli/JustCli.csproj", 
+    "<AssemblyVersion>(.+?)</AssemblyVersion>", 
+    "<AssemblyVersion>" + version + "</AssemblyVersion>");
+
+  ReplaceRegexInFiles("./src/core/JustCli/JustCli.csproj", 
+    "<Version>(.+?)</Version>", 
+    "<Version>" + version + "</Version>");
 });
 
 Task("Compile")
@@ -66,6 +85,7 @@ Task("RunTests")
 
 Task("CreateNugetFolder")
   .Description("Creates Nuget folder")
+  .IsDependentOn("SetVersion")
   .IsDependentOn("Compile")
   .IsDependentOn("RunTests")
   .Does(() =>
