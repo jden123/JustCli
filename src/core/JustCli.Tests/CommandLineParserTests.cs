@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using JustCli.Commands;
 using JustCli.Tests.Commands;
 using NSubstitute;
@@ -20,6 +21,7 @@ namespace JustCli.Tests
             _commandRepository.GetCommandType("dosomething-ntimes").Returns(typeof(DoSomethingNTimesCommand));
             _commandRepository.GetCommandType("DoSomethingWithDates").Returns(typeof(DoSomethingWithDatesCommand));
             _commandRepository.GetCommandType("DoSomethingWithGuids").Returns(typeof(DoSomethingWithGuidsCommand));
+            _commandRepository.GetCommandType("DoSomethingAsync").Returns(typeof(DoSomethingAsyncCommand));
             _commandRepository.GetCommandType("ex").Returns(typeof(ThrowExceptionCommand));
 
             _commandLineParser = new CommandLineParser(_commandRepository);
@@ -204,6 +206,13 @@ namespace JustCli.Tests
         {
             string[] args = new[] { "ex" };
             Assert.AreEqual(ReturnCode.Failure, _commandLineParser.ParseAndExecuteCommand(args));
+        }
+
+        [Test]
+        public async Task ExecuteAsync()
+        {
+            string[] args = new[] { "ex" };
+            await _commandLineParser.ParseAndExecuteCommandAsync(args);
         }
 
         // TODO: add tests for error messages

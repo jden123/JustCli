@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using JustCli.Commands;
 using JustCli.Outputs;
 
@@ -100,6 +101,33 @@ namespace JustCli
                 return ReturnCode.Failure;
             }
         }
+
+        public async Task<int> ParseAndExecuteCommandAsync(string[] args)
+        {
+            var command = ParseCommand(args);
+
+            // NOTE: the error code should send the command.
+            if (command == null)
+            {
+                return ReturnCode.Failure;
+            }
+
+            try
+            {
+                return await command.ExecuteAsync();
+            }
+            catch (Exception e)
+            {
+                Output.WriteError(e.Message);
+                if (ShowExceptionStackTrace)
+                {
+                    Output.WriteError(e.StackTrace);
+                }
+
+                return ReturnCode.Failure;
+            }
+        }
+
 
         private CommandLineHelpCommand CreateDefaultCommand()
         {
