@@ -13,13 +13,13 @@ namespace JustCli.TestApp.Commands
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public Task<int> Execute()
+        public async Task<int> Execute()
         {
             Output.WriteInfo(ShowUtc
                 ? string.Format("Utc time is {0}", DateTime.UtcNow)
                 : string.Format("Local time is {0}", DateTime.Now));
 
-            return ReturnCode.Success.ToAsync();
+            return await ReturnCode.Success.ToAsync();
         }
 
     }

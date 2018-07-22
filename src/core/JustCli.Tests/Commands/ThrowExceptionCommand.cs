@@ -7,7 +7,7 @@ namespace JustCli.Tests.Commands
     [Command("ex", "Throws exception.")]
     public class ThrowExceptionCommand : ICommand
     {
-        public Task<int> Execute()
+        public async Task<int> Execute()
         {
             try
             {
@@ -16,7 +16,7 @@ namespace JustCli.Tests.Commands
             }
             catch (Exception)
             {
-                return ReturnCode.Failure.ToAsync();
+                return await ReturnCode.Failure.ToAsync();
             }
             
         }

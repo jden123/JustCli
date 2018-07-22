@@ -76,19 +76,19 @@ namespace JustCli
             }
         }
 
-        public Task<int> ParseAndExecuteCommand(string[] args)
+        public async Task<int> ParseAndExecuteCommand(string[] args)
         {
             var command = ParseCommand(args);
 
             // NOTE: the error code should send the command.
             if (command == null)
             {
-                return ReturnCode.Failure.ToAsync();
+                return await ReturnCode.Failure.ToAsync();
             }
 
             try
             {
-                return command.Execute();
+                return await command.Execute();
             }
             catch (Exception e)
             {
@@ -98,7 +98,7 @@ namespace JustCli
                     Output.WriteError(e.StackTrace);
                 }
 
-                return ReturnCode.Failure.ToAsync();
+                return await ReturnCode.Failure.ToAsync();
             }
         }
 

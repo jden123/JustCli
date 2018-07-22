@@ -14,16 +14,16 @@ namespace JustCli.TestApp.Commands
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public Task<int> Execute()
+        public async Task<int> Execute()
         {
             if (!File.Exists(FilePath))
             {
                 Output.WriteError(string.Format("The file[{0}] does not exist. Please check the file path.", FilePath));
-                return ReturnCode.Failure.ToAsync();
+                return await ReturnCode.Failure.ToAsync();
             }
 
             Output.WriteSuccess(string.Format("Utc file creation time is {0}", File.GetCreationTimeUtc(FilePath)));
-            return ReturnCode.Success.ToAsync();
+            return await ReturnCode.Success.ToAsync();
         }
     }
 }

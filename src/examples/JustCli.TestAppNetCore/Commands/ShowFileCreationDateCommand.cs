@@ -14,7 +14,7 @@ namespace JustCli.TestApp.Commands
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public Task<int> Execute()
+        public async Task<int> Execute()
         {
             if (!File.Exists(FilePath))
             {
@@ -23,7 +23,7 @@ namespace JustCli.TestApp.Commands
             }
 
             Output.WriteSuccess(string.Format("Utc file creation time is {0}", File.GetCreationTimeUtc(FilePath)));
-            return ReturnCode.Success.ToAsync();
+            return await ReturnCode.Success.ToAsync();
         }
 
         

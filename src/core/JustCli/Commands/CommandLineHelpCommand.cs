@@ -14,14 +14,14 @@ namespace JustCli.Commands
             Output = output;
         }
 
-        public Task<int> Execute()
+        public async Task<int> Execute()
         {
             var commandsInfo = CommandRepository.GetCommandsInfo();
 
             if (commandsInfo.Count == 0)
             {
                 Output.WriteInfo("There are no commands.");
-                return ReturnCode.Success.ToAsync();
+                return await ReturnCode.Success.ToAsync();
             }
 
             Output.WriteInfo("Command list:");
@@ -30,7 +30,7 @@ namespace JustCli.Commands
                 Output.WriteInfo(string.Format("{0} - {1}", commandInfo.Name, commandInfo.Description));
             }
 
-            return ReturnCode.Success.ToAsync();
+            return await ReturnCode.Success.ToAsync();
         }
     }
 }
