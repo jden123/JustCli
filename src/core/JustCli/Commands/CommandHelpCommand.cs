@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace JustCli.Commands
 {
@@ -14,7 +15,7 @@ namespace JustCli.Commands
            Output = output;
        }
 
-       public int Execute()
+       public async Task<int> Execute()
        {
            var helpStringBuilder = new StringBuilder();
 
@@ -61,7 +62,7 @@ namespace JustCli.Commands
                Output.WriteInfo(propertyHelpStringBuilder.ToString());
            }
 
-           return ReturnCode.Success;
+           return await ReturnCode.Success.ToAsync();
        }
-   }
+    }
 }

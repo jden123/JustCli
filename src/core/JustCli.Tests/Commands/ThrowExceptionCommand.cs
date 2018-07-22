@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JustCli.Attributes;
 
 namespace JustCli.Tests.Commands
@@ -6,9 +7,18 @@ namespace JustCli.Tests.Commands
     [Command("ex", "Throws exception.")]
     public class ThrowExceptionCommand : ICommand
     {
-        public int Execute()
+        public async Task<int> Execute()
         {
-            throw new Exception("exception!");
+            try
+            {
+                throw new Exception("testexception");
+                    
+            }
+            catch (Exception)
+            {
+                return await ReturnCode.Failure.ToAsync();
+            }
+            
         }
     }
 }

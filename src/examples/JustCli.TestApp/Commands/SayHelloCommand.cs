@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JustCli.Attributes;
 
 namespace JustCli.TestApp.Commands
@@ -15,7 +16,7 @@ namespace JustCli.TestApp.Commands
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public int Execute()
+        public async Task<int> Execute()
         {
             if (ShowCurrentUtcTime)
             {
@@ -23,7 +24,7 @@ namespace JustCli.TestApp.Commands
             }
             
             Output.WriteInfo(string.Format("Hello {0}!", Name));
-            return ReturnCode.Success;
+            return await ReturnCode.Success.ToAsync();
         }
     }
 }

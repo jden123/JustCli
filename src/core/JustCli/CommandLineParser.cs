@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using JustCli.Commands;
 using JustCli.Outputs;
 
@@ -75,19 +76,19 @@ namespace JustCli
             }
         }
 
-        public int ParseAndExecuteCommand(string[] args)
+        public async Task<int> ParseAndExecuteCommand(string[] args)
         {
             var command = ParseCommand(args);
 
             // NOTE: the error code should send the command.
             if (command == null)
             {
-                return ReturnCode.Failure;
+                return await ReturnCode.Failure.ToAsync();
             }
 
             try
             {
-                return command.Execute();
+                return await command.Execute();
             }
             catch (Exception e)
             {
@@ -96,8 +97,8 @@ namespace JustCli
                 {
                     Output.WriteError(e.StackTrace);
                 }
-                
-                return ReturnCode.Failure;
+
+                return await ReturnCode.Failure.ToAsync();
             }
         }
 

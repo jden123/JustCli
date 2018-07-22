@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace JustCli.Tests.Commands
 {
     public class SecondCommand : ICommand
     {
-        public int Execute()
+        public Task<int> Execute()
         {
             throw new NotImplementedException();
         }

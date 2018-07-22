@@ -136,8 +136,8 @@ namespace JustCli
             catch (Exception e)
             {
                 throw new Exception(string.Format(
-                    "The argument [{0}] is not set up. The value [{1}] cannot be cast to [{2}].", 
-                    longName, stringValue, propertyType.Name));
+                    "The argument [{0}] is not set up. The value [{1}] cannot be cast to [{2}].{3}", 
+                    longName, stringValue, propertyType.Name, e.ToString()));
             }
         }
 

@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net4;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Configurations>Debug;Release;ReleaseForPublish</Configurations>
     <AssemblyVersion>2.0.1.1</AssemblyVersion>
-    <Version>2.0.1.1</Version>
+    <Version>2.1.1.1</Version>
   </PropertyGroup>
 
 </Project>

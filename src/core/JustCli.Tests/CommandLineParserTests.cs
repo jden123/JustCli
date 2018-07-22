@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using JustCli.Commands;
 using JustCli.Tests.Commands;
 using NSubstitute;
@@ -20,6 +21,7 @@ namespace JustCli.Tests
             _commandRepository.GetCommandType("dosomething-ntimes").Returns(typeof(DoSomethingNTimesCommand));
             _commandRepository.GetCommandType("DoSomethingWithDates").Returns(typeof(DoSomethingWithDatesCommand));
             _commandRepository.GetCommandType("DoSomethingWithGuids").Returns(typeof(DoSomethingWithGuidsCommand));
+            _commandRepository.GetCommandType("DoSomethingAsync").Returns(typeof(DoSomethingAsyncCommand));
             _commandRepository.GetCommandType("ex").Returns(typeof(ThrowExceptionCommand));
 
             _commandLineParser = new CommandLineParser(_commandRepository);
@@ -200,22 +202,32 @@ namespace JustCli.Tests
         }
 
         [Test]
-        public void ParserShouldReturnFailureOnException()
+        public async Task ParserShouldReturnFailureOnException()
         {
             string[] args = new[] { "ex" };
-            Assert.AreEqual(ReturnCode.Failure, _commandLineParser.ParseAndExecuteCommand(args));
+            var res = await _commandLineParser.ParseAndExecuteCommand(args);
+            Assert.AreEqual(ReturnCode.Failure, res);
+        }
+
+        [Test]
+        public async Task ExecuteAsyncComand()
+        {
+            string[] args = new[] { "DoSomethingAsync" };
+
+            var res = await  _commandLineParser.ParseAndExecuteCommand(args);
+            Assert.AreEqual(ReturnCode.Success, res);
         }
 
         // TODO: add tests for error messages
-//        [Test]
-//        public void ParserShouldReturnFailureOnException11()
-//        {
-//            string[] args = new[] { "dosomething-ntimes", "-r", "d" };
-//            var memoryOutput = new MemoryOutput();
-//            var commandLineParser = new CommandLineParser(_commandRepository, memoryOutput);
-//            Assert.AreEqual(ReturnCode.Failure, commandLineParser.ParseAndExecuteCommand(args));
-//            Assert.True(memoryOutput.Content.Any(l => l.Contains("action")));
-//            Assert.True(memoryOutput.Content.Any(l => l.Contains("repeat")));
-//        }
+        //        [Test]
+        //        public void ParserShouldReturnFailureOnException11()
+        //        {
+        //            string[] args = new[] { "dosomething-ntimes", "-r", "d" };
+        //            var memoryOutput = new MemoryOutput();
+        //            var commandLineParser = new CommandLineParser(_commandRepository, memoryOutput);
+        //            Assert.AreEqual(ReturnCode.Failure, commandLineParser.ParseAndExecuteCommand(args));
+        //            Assert.True(memoryOutput.Content.Any(l => l.Contains("action")));
+        //            Assert.True(memoryOutput.Content.Any(l => l.Contains("repeat")));
+        //        }
     }
 }

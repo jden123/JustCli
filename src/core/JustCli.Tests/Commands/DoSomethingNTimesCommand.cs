@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JustCli.Attributes;
 
 namespace JustCli.Tests.Commands
@@ -12,7 +13,7 @@ namespace JustCli.Tests.Commands
         [CommandArgument("r", "repeat", Description = "Number of repeats.", DefaultValue = 1)]
         public int Repeat { get; private set; }
 
-        public int Execute()
+        public Task<int> Execute()
         {
             throw new NotImplementedException();
         }
