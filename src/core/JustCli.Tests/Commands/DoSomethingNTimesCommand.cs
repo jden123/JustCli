@@ -13,12 +13,7 @@ namespace JustCli.Tests.Commands
         [CommandArgument("r", "repeat", Description = "Number of repeats.", DefaultValue = 1)]
         public int Repeat { get; private set; }
 
-        public int Execute()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> ExecuteAsync()
+        public Task<int> Execute()
         {
             throw new NotImplementedException();
         }

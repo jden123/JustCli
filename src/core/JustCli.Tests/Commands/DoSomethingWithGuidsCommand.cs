@@ -16,14 +16,9 @@ namespace JustCli.Tests.Commands
       [CommandOutput]
       public IOutput Output { get; set; }
 
-      public int Execute()
+      public Task<int> Execute()
       {
          throw new NotImplementedException();
       }
-
-        public Task<int> ExecuteAsync()
-        {
-            throw new NotImplementedException();
-        }
-    }
+   }
 }

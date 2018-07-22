@@ -4,23 +4,16 @@ using JustCli.Attributes;
 
 namespace JustCli.Tests.Commands
 {
+    [Command("DoSomethingAsync", "Async Task")]
     public class DoSomethingAsyncCommand : ICommand
     {
-        [CommandArgument("a", "action", DefaultValue = "default")]
-        public string Action { get; private set; }
-
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public int Execute()
+        public async Task<int> Execute()
         {
-            throw new NotImplementedException();
+            return await ReturnCode.Success.ToAsync();
         }
 
-        public async Task<int> ExecuteAsync()
-        {
-            return await Task.Factory.StartNew(
-                () => (ReturnCode.Success));
-        }
     }
 }

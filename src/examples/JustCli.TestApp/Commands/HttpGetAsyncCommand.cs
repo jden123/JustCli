@@ -17,12 +17,7 @@ namespace JustCli.TestApp.Commands
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public int Execute()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> ExecuteAsync()
+        public async Task<int> Execute()
         {
             HttpClient http = new HttpClient();
             var res = await http.GetStringAsync(Url);

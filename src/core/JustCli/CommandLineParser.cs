@@ -76,14 +76,14 @@ namespace JustCli
             }
         }
 
-        public int ParseAndExecuteCommand(string[] args)
+        public Task<int> ParseAndExecuteCommand(string[] args)
         {
             var command = ParseCommand(args);
 
             // NOTE: the error code should send the command.
             if (command == null)
             {
-                return ReturnCode.Failure;
+                return ReturnCode.Failure.ToAsync();
             }
 
             try
@@ -97,37 +97,10 @@ namespace JustCli
                 {
                     Output.WriteError(e.StackTrace);
                 }
-                
-                return ReturnCode.Failure;
+
+                return ReturnCode.Failure.ToAsync();
             }
         }
-
-        public async Task<int> ParseAndExecuteCommandAsync(string[] args)
-        {
-            var command = ParseCommand(args);
-
-            // NOTE: the error code should send the command.
-            if (command == null)
-            {
-                return ReturnCode.Failure;
-            }
-
-            try
-            {
-                return await command.ExecuteAsync();
-            }
-            catch (Exception e)
-            {
-                Output.WriteError(e.Message);
-                if (ShowExceptionStackTrace)
-                {
-                    Output.WriteError(e.StackTrace);
-                }
-
-                return ReturnCode.Failure;
-            }
-        }
-
 
         private CommandLineHelpCommand CreateDefaultCommand()
         {

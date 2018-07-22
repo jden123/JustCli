@@ -6,8 +6,7 @@ namespace JustCli.TestApp
    {
       static async Task<int> Main(string[] args)
       {
-          return CommandLineParser.Default.ParseAndExecuteCommand(args);
-          //return await CommandLineParser.Default.ParseAndExecuteCommandAsync(args);
-        }
+          return await CommandLineParser.Default.ParseAndExecuteCommand(args);          
+      }
    }
 }

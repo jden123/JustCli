@@ -16,7 +16,7 @@ namespace JustCli.TestApp.Commands
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public int Execute()
+        public Task<int> Execute()
         {
             if (ShowCurrentUtcTime)
             {
@@ -24,12 +24,7 @@ namespace JustCli.TestApp.Commands
             }
             
             Output.WriteInfo(string.Format("Hello {0}!", Name));
-            return ReturnCode.Success;
-        }
-
-        public Task<int> ExecuteAsync()
-        {
-            throw new NotImplementedException();
+            return ReturnCode.Success.ToAsync();
         }
     }
 }

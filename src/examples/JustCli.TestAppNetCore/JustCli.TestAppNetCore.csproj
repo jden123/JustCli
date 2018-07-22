@@ -6,6 +6,10 @@
     <Configurations>Debug;Release;ReleaseForPublish</Configurations>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\core\JustCli\JustCli.csproj" />
   </ItemGroup>

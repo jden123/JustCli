@@ -15,7 +15,7 @@ namespace JustCli.Commands
            Output = output;
        }
 
-       public int Execute()
+       public Task<int> Execute()
        {
            var helpStringBuilder = new StringBuilder();
 
@@ -62,12 +62,7 @@ namespace JustCli.Commands
                Output.WriteInfo(propertyHelpStringBuilder.ToString());
            }
 
-           return ReturnCode.Success;
+           return ReturnCode.Success.ToAsync();
        }
-
-        public Task<int> ExecuteAsync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

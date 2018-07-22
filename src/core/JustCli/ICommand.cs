@@ -4,7 +4,7 @@ namespace JustCli
 {
     public interface ICommand
     {
-        int Execute();
-        Task<int> ExecuteAsync();
+       // int Execute();
+        Task<int> Execute();
     }
 }

@@ -5,12 +5,7 @@ namespace JustCli.Tests.Commands
 {
     public class SecondCommand : ICommand
     {
-        public int Execute()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> ExecuteAsync()
+        public Task<int> Execute()
         {
             throw new NotImplementedException();
         }

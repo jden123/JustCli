@@ -14,15 +14,11 @@ namespace JustCli.TestApp.Commands
         [CommandOutput]
         public IOutput Output { get; set; }
 
-        public int Execute()
+        public Task<int> Execute()
         {
             Output.WriteInfo("Привет!");
-            return ReturnCode.Success;
+            return ReturnCode.Success.ToAsync();
         }
 
-        public Task<int> ExecuteAsync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
