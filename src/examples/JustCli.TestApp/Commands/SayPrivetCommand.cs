@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JustCli.Attributes;
 
 namespace JustCli.TestApp.Commands
@@ -17,6 +18,11 @@ namespace JustCli.TestApp.Commands
         {
             Output.WriteInfo("Привет!");
             return ReturnCode.Success;
+        }
+
+        public Task<int> ExecuteAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

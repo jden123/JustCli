@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JustCli.Attributes;
 
 namespace JustCli.TestApp.Commands
@@ -19,6 +20,11 @@ namespace JustCli.TestApp.Commands
                 : string.Format("Local time is {0}", DateTime.Now));
 
             return ReturnCode.Success;
+        }
+
+        public Task<int> ExecuteAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

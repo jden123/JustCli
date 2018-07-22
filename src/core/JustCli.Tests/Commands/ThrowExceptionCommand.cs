@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using JustCli.Attributes;
 
 namespace JustCli.Tests.Commands
@@ -9,6 +10,11 @@ namespace JustCli.Tests.Commands
         public int Execute()
         {
             throw new Exception("exception!");
+        }
+
+        public Task<int> ExecuteAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

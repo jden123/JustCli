@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JustCli.Commands
 {
@@ -30,6 +31,11 @@ namespace JustCli.Commands
             }
 
             return ReturnCode.Success;
+        }
+
+        public Task<int> ExecuteAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

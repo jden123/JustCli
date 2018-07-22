@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace JustCli.Commands
 {
@@ -63,5 +64,10 @@ namespace JustCli.Commands
 
            return ReturnCode.Success;
        }
-   }
+
+        public Task<int> ExecuteAsync()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

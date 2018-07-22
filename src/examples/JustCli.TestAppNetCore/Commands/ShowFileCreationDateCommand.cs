@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using JustCli.Attributes;
 
 namespace JustCli.TestApp.Commands
@@ -23,6 +24,11 @@ namespace JustCli.TestApp.Commands
 
             Output.WriteSuccess(string.Format("Utc file creation time is {0}", File.GetCreationTimeUtc(FilePath)));
             return ReturnCode.Success;
+        }
+
+        public Task<int> ExecuteAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
