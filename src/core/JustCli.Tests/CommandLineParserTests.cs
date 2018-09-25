@@ -21,6 +21,7 @@ namespace JustCli.Tests
             _commandRepository.GetCommandType("DoSomethingWithDates").Returns(typeof(DoSomethingWithDatesCommand));
             _commandRepository.GetCommandType("DoSomethingWithGuids").Returns(typeof(DoSomethingWithGuidsCommand));
             _commandRepository.GetCommandType("ex").Returns(typeof(ThrowExceptionCommand));
+            _commandRepository.GetCommandType("asynccommand").Returns(typeof(AsyncCommand));
 
             _commandLineParser = new CommandLineParser(_commandRepository);
         }
@@ -206,6 +207,42 @@ namespace JustCli.Tests
             Assert.AreEqual(ReturnCode.Failure, _commandLineParser.ParseAndExecuteCommand(args));
         }
 
+        [Test]
+        public void ParseAndExecuteCommandShouldSkipAsyncCommand()
+        {
+            string[] args = new[] { "asynccommand" };
+            Assert.AreEqual(
+                ReturnCode.Failure, 
+                new CommandLineParser(_commandRepository).ParseAndExecuteCommand(args));
+        }
+
+        [Test]
+        public void ParseAndExecuteCommandAsyncShouldCallAsyncCommand()
+        {
+            string[] args = new[] { "asynccommand" };
+            Assert.AreEqual(
+                ReturnCode.Success, 
+                new CommandLineParser(_commandRepository).ParseAndExecuteCommandAsync(args).Result);
+        }
+
+        [Test]
+        public void ParseAndExecuteCommandAsyncShouldCallSyncCommand()
+        {
+            string[] args = new[] { "dosomething" };
+            Assert.AreEqual(
+                ReturnCode.Success, 
+                new CommandLineParser(_commandRepository).ParseAndExecuteCommandAsync(args).Result);
+        }
+
+        [Test]
+        public void ParseAndExecuteCommandAsyncShouldCallSyncHelpCommand()
+        {
+            string[] args = new string[0];
+            Assert.AreEqual(
+                ReturnCode.Success, 
+                new CommandLineParser(_commandRepository).ParseAndExecuteCommandAsync(args).Result);
+        }
+        
         // TODO: add tests for error messages
 //        [Test]
 //        public void ParserShouldReturnFailureOnException11()

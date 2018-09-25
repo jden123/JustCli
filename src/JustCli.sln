@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{41D546
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustCli.TestAppNetCore", "examples\JustCli.TestAppNetCore\JustCli.TestAppNetCore.csproj", "{529F3659-9824-4DD7-A778-D8ABF665D086}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustCli.TestAppAsync", "examples\JustCli.TestAppAsync\JustCli.TestAppAsync.csproj", "{7A610CAA-F435-42E7-A5FC-B760651D47CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{529F3659-9824-4DD7-A778-D8ABF665D086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{529F3659-9824-4DD7-A778-D8ABF665D086}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{529F3659-9824-4DD7-A778-D8ABF665D086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A610CAA-F435-42E7-A5FC-B760651D47CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A610CAA-F435-42E7-A5FC-B760651D47CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A610CAA-F435-42E7-A5FC-B760651D47CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A610CAA-F435-42E7-A5FC-B760651D47CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +58,7 @@ Global
 		{3C4D3907-221D-43B0-A6DC-D9102054D7CC} = {7BF780BA-243E-46CF-A8C8-5169978075E2}
 		{2A166593-26DE-4642-AC7F-A9E470E2F608} = {D844FCA9-6679-491F-AE16-626DE714DC82}
 		{529F3659-9824-4DD7-A778-D8ABF665D086} = {D844FCA9-6679-491F-AE16-626DE714DC82}
+		{7A610CAA-F435-42E7-A5FC-B760651D47CA} = {D844FCA9-6679-491F-AE16-626DE714DC82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F0C354B-41BF-42AB-8503-E354F208C1D7}

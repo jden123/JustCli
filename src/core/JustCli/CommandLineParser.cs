@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using JustCli.Commands;
 using JustCli.Outputs;
 
@@ -32,7 +33,7 @@ namespace JustCli
             ShowExceptionStackTrace = false;
         }
 
-        public ICommand ParseCommand(string[] args)
+        public object ParseCommand(string[] args)
         {
             if (args.Length == 0)
             {
@@ -87,7 +88,48 @@ namespace JustCli
 
             try
             {
-                return command.Execute();
+                if (command is ICommand syncCommand)
+                {
+                    return syncCommand.Execute();
+                }
+                
+                return ReturnCode.Failure;
+            }
+            catch (Exception e)
+            {
+                Output.WriteError(e.Message);
+                if (ShowExceptionStackTrace)
+                {
+                    Output.WriteError(e.StackTrace);
+                }
+                
+                return ReturnCode.Failure;
+            }
+        }
+        
+        public async Task<int> ParseAndExecuteCommandAsync(string[] args)
+        {
+            var command = ParseCommand(args);
+
+            // NOTE: the error code should send the command.
+            if (command == null)
+            {
+                return ReturnCode.Failure;
+            }
+
+            try
+            {
+                if (command is ICommandAsync asyncCommand)
+                {
+                    return await asyncCommand.ExecuteAsync();
+                }
+                
+                if (command is ICommand syncCommand)
+                {
+                    return await Task.Factory.StartNew(() => syncCommand.Execute());
+                }
+                
+                return ReturnCode.Failure;
             }
             catch (Exception e)
             {
