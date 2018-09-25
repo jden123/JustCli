@@ -1,13 +1,8 @@
-using JustCli.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using JustCli.Attributes;
 
-namespace JustCli.TestApp.Commands
+namespace JustCli.TestAppAsync.Commands
 {
    [Command("httpget", "Gets Url")]
    class HttpGetAsyncCommand : ICommandAsync

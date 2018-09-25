@@ -107,6 +107,7 @@ namespace JustCli
             }
         }
         
+#if !NET40
         public async Task<int> ParseAndExecuteCommandAsync(string[] args)
         {
             var command = ParseCommand(args);
@@ -142,7 +143,8 @@ namespace JustCli
                 return ReturnCode.Failure;
             }
         }
-
+#endif
+        
         private CommandLineHelpCommand CreateDefaultCommand()
         {
             return new CommandLineHelpCommand(CommandRepository, Output);
