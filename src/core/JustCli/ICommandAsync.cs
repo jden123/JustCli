@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿#if !NET40
+using System.Threading.Tasks;
 
 namespace JustCli
 {
@@ -7,3 +8,4 @@ namespace JustCli
       Task<int> ExecuteAsync();
    }
 }
+#endif
