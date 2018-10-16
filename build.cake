@@ -107,7 +107,8 @@ Task("CreateNugetFolder")
 {
   CreateDirectory(nugetSource);
   CopyFile(File("readme.txt"), nugetSource + File("readme.txt"));
-  CopyDirectory(releaseFolder + Directory("net4"), nugetSource + Directory("lib/net40"));
+  CopyDirectory(releaseFolder + Directory("net40"), nugetSource + Directory("lib/net40"));
+  CopyDirectory(releaseFolder + Directory("net45"), nugetSource + Directory("lib/net45"));
   CopyDirectory(releaseFolder + Directory("netstandard2.0"), nugetSource + Directory("lib/netstandard2.0"));
 });
 
