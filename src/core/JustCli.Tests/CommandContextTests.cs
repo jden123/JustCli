@@ -68,5 +68,17 @@ namespace JustCli.Tests
 
             Assert.AreEqual(true, argValue);
         }
+
+        [Test]
+        public void ShouldGetValueFromStringDefaultValueForNonPrimitiveTypes()
+        {
+            var commandContext = new CommandContext(Args);
+
+            var argumentInfo = new ArgumentInfo() { ShortName = "npt", ArgumentType = typeof(decimal), DefaultValue = "0.123"};
+            var argValue = commandContext.GetArgValue(argumentInfo);
+
+            Assert.AreEqual(typeof(decimal), argValue.GetType());
+            Assert.AreEqual(0.123, argValue);
+        }
     }
 }

@@ -69,6 +69,7 @@ namespace JustCli
         private object GetArgValue(string shortName, string longName, object defaultValue, Type propertyType)
         {
             var stringValue = GetArgumentValue(shortName, longName);
+
             if (stringValue == null)
             {
                 if (defaultValue == null)
@@ -76,10 +77,16 @@ namespace JustCli
                     throw new Exception(string.Format("The argument [{0}] is not presented in command line.", longName));
                 }
 
-                // special case: we cannot set default value for datetime. Have to use string.
-                if (propertyType == typeof(DateTime) && defaultValue is string)
+                if (!(defaultValue is string))
                 {
-                    var defaultValueString = (string) defaultValue;
+                    return defaultValue;
+                }
+                
+                var defaultValueString = (string) defaultValue;
+                
+                // special case: we cannot set default value for datetime. Have to use string.
+                if (propertyType == typeof(DateTime))
+                {
                     if (defaultValueString.ToLower() == "minvalue")
                     {
                         return DateTime.MinValue;
@@ -100,9 +107,8 @@ namespace JustCli
                 }
 
                 // special case: we cannot set default value for GUID. Have to use string.
-                if (propertyType == typeof(Guid) && defaultValue is string)
+                if (propertyType == typeof(Guid))
                 {
-                    var defaultValueString = (string) defaultValue;
                     if (defaultValueString.ToLower() == "empty")
                     {
                        return Guid.Empty;
@@ -117,7 +123,22 @@ namespace JustCli
                     throw new Exception(string.Format("Default value for The argument [{0}] is not valid.", longName));
                 }
 
-                return defaultValue;
+                if (propertyType != typeof(string))
+                {
+                    try
+                    {
+                        return ConvertFromString(defaultValueString, propertyType, true);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(string.Format(
+                            "The argument [{0}] is not set up. The default value [{1}] cannot be cast to [{2}].", 
+                            longName, defaultValueString, propertyType.Name));
+                    }
+                }
+
+                // if property is string
+                return defaultValueString;
             }
             
             // special case: flag attributes.
@@ -130,8 +151,7 @@ namespace JustCli
 
             try
             {
-                var value = ConvertFromString(stringValue, propertyType);
-                return value;
+                return ConvertFromString(stringValue, propertyType);
             }
             catch (Exception e)
             {
@@ -142,11 +162,19 @@ namespace JustCli
         }
 
         // TODO: try method and write down an error message
-        private static object ConvertFromString(string stringValue, Type toType)
+        private static object ConvertFromString(string stringValue, Type toType, bool useInvariantCulture = false)
         {
             var typeConverter = TypeDescriptor.GetConverter(toType);
-            var value = typeConverter.ConvertFrom(stringValue);
-            return value;
+            if (useInvariantCulture)
+            {
+                var value = typeConverter.ConvertFromString(null, CultureInfo.InvariantCulture, stringValue);
+                return value;
+            }
+            else
+            {
+                var value = typeConverter.ConvertFromString(stringValue);
+                return value;
+            }
         }
 
         private string GetArgumentValue(string shortName, string longName)
