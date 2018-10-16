@@ -1,3 +1,7 @@
+## New in 2.1.0.0 (Released 2018/10/26)
+* Async support.
+* Default value for non primitive types is set up as string value.
+
 ## New in 2.0.1.1 (Released 2018/05/27)
 * Update nuget package.
 
