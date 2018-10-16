@@ -62,5 +62,17 @@ namespace JustCli.Tests
 
             Assert.IsNull(commandsInfo.FirstOrDefault(c => c.Name == commandName.ToLower()));
         }
+        
+        [Test]
+        public void AssemblyCommandRepositoryShouldFindAsyncCommand()
+        {
+            var assemblyCommandRepository = new AssemblyCommandRepository();
+
+            var commandType = assemblyCommandRepository.GetCommandType("asynccommand");
+
+            Assert.IsNotNull(commandType);
+            Assert.AreEqual(typeof(AsyncCommand), commandType);
+            Assert.IsNotNull(commandType.GetInterface("ICommandAsync"));
+        }
     }
 }

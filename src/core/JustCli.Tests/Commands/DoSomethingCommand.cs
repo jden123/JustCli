@@ -13,7 +13,7 @@ namespace JustCli.Tests.Commands
 
         public int Execute()
         {
-            throw new NotImplementedException();
+            return ReturnCode.Success;
         }
     }
 }

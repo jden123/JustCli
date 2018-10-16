@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JustCli.Tests</RootNamespace>
     <AssemblyName>JustCli.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -64,6 +64,7 @@
     <Compile Include="CommandLineParserTests.cs" />
     <Compile Include="CommandContextTests.cs" />
     <Compile Include="CommandMetaDataHelperTests.cs" />
+    <Compile Include="Commands\AsyncCommand.cs" />
     <Compile Include="Commands\DoSomethingWithDatesCommand.cs" />
     <Compile Include="Commands\DoSomethingWithGuidsCommand.cs" />
     <Compile Include="Commands\ThrowExceptionCommand.cs" />

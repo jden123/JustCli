@@ -57,7 +57,14 @@ namespace JustCli
 
         private static bool TypeIsCommand(Type type)
         {
-            return type.GetInterfaces().Contains(typeof(ICommand)) &&
+#if NET40
+            var hasCommandInterface = type.GetInterfaces().Contains(typeof(ICommand));
+#else         
+            var hasCommandInterface = type.GetInterfaces().Contains(typeof(ICommand)) || 
+                                      type.GetInterfaces().Contains(typeof(ICommandAsync));
+#endif
+            
+            return hasCommandInterface &&
                    !type.IsAbstract &&
                    !type.IsInterface &&
                    type.GetCustomAttributes(typeof(CommandAttribute), true).Length > 0;
