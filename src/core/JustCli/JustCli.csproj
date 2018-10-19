@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0</TargetFrameworks>
     <Configurations>Debug;Release;ReleaseForPublish</Configurations>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <Version>2.1.0.0</Version>
+    <AssemblyVersion>2.2.0.0</AssemblyVersion>
+    <Version>2.2.0.0</Version>
   </PropertyGroup>
 
 </Project>
