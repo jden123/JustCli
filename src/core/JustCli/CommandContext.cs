@@ -10,7 +10,7 @@ namespace JustCli
     public class CommandContext
     {
         private readonly string CommandName;
-        private readonly Dictionary<string, string> ArgValues; 
+        private readonly Dictionary<string, string> ArgValues = new Dictionary<string, string>(); 
         
         public CommandContext(string[] args)
         {
@@ -20,7 +20,8 @@ namespace JustCli
             }
 
             CommandName = args[0];
-            ArgValues = new Dictionary<string, string>();
+
+            ExtractArgumentsValuesFromAdditionalSources(additionalArgValueSources);
 
             if (args.Length == 1)
             {
@@ -33,6 +34,29 @@ namespace JustCli
                 throw new ArgumentException("Cannot find argument.");
             }
 
+            ExtractArgumentsValuesFromCommandline(args);
+        }
+
+        private void ExtractArgumentsValuesFromAdditionalSources(
+            IEnumerable<IArgValueSource> additionalArgValueSources)
+        {
+            if (additionalArgValueSources == null)
+            {
+                return;
+            }
+
+            foreach (var additionalArgValueSource in additionalArgValueSources)
+            {
+                foreach (var additionalArgValuePair in additionalArgValueSource.GetArgValues())
+                {
+                    ArgValues[$"--{additionalArgValuePair.Key}"] = additionalArgValuePair.Value;
+                }
+            }
+        }
+
+        private void ExtractArgumentsValuesFromCommandline(
+            string[] args)
+        {
             var argName = string.Empty;
             var argValue = string.Empty;
             for (var i = 1; i < args.Length; i++)
@@ -51,8 +75,8 @@ namespace JustCli
                 else
                 {
                     argValue = string.IsNullOrEmpty(argValue)
-                        ? element
-                        : argValue + " " + element;
+                                   ? element
+                                   : argValue + " " + element;
                 }
             }
 

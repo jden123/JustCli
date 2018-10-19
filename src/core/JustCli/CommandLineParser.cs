@@ -25,6 +25,8 @@ namespace JustCli
         private IOutput Output { get; set; }
 
         public bool ShowExceptionStackTrace { get; set; }
+
+        private readonly List<IArgValueSource> _additionalArgValueSources = new List<IArgValueSource>();
         
         public CommandLineParser(ICommandRepository commandRepository, IOutput output = null)
         {
@@ -33,6 +35,11 @@ namespace JustCli
             ShowExceptionStackTrace = false;
         }
 
+        public void AddAdditionalArgValueSource(IArgValueSource argValueSource)
+        {
+            _additionalArgValueSources.Add(argValueSource);
+        }
+        
         public object ParseCommand(string[] args)
         {
             if (args.Length == 0)
@@ -63,7 +70,7 @@ namespace JustCli
 
             try
             {
-                return CommandActivator.CreateCommand(commandType, args, Output);
+                return CommandActivator.CreateCommand(commandType, args, Output, _additionalArgValueSources);
             }
             catch (Exception e)
             {
