@@ -12,7 +12,7 @@ namespace JustCli
         private readonly string CommandName;
         private readonly Dictionary<string, string> ArgValues; 
         
-        public CommandContext(string[] args)
+        public CommandContext(string[] args, IEnumerable<IArgValueSource> additionalArgValueSources = null)
         {
             if (args.Length == 0)
             {
@@ -33,6 +33,18 @@ namespace JustCli
                 throw new ArgumentException("Cannot find argument.");
             }
 
+            // Process additional arg sources
+            if (additionalArgValueSources != null)
+            {
+                foreach (var additionalArgValueSource in additionalArgValueSources)
+                {
+                    foreach (var additionalArgValuePair in additionalArgValueSource.GetArgValues())
+                    {
+                        ArgValues[$"--{additionalArgValuePair.Key}"] = additionalArgValuePair.Value;
+                    }
+                }
+            }
+            
             var argName = string.Empty;
             var argValue = string.Empty;
             for (var i = 1; i < args.Length; i++)
@@ -42,7 +54,7 @@ namespace JustCli
                 {
                     if (!string.IsNullOrEmpty(argName) && !ArgValues.ContainsKey(argName))
                     {
-                        ArgValues.Add(argName, argValue);
+                        ArgValues[argName] = argValue;
                     }
 
                     argName = element;
@@ -57,7 +69,7 @@ namespace JustCli
             }
 
             // put last pair
-            ArgValues.Add(argName, argValue);
+            ArgValues[argName] = argValue;
         }
 
         // TODO: try method and write down an error message
@@ -131,9 +143,11 @@ namespace JustCli
                     }
                     catch (Exception e)
                     {
-                        throw new Exception(string.Format(
-                            "The argument [{0}] is not set up. The default value [{1}] cannot be cast to [{2}].", 
-                            longName, defaultValueString, propertyType.Name));
+                        throw new Exception(
+                            string.Format(
+                                "The argument [{0}] is not set up. The default value [{1}] cannot be cast to [{2}].", 
+                                longName, defaultValueString, propertyType.Name),
+                            e);
                     }
                 }
 
@@ -155,9 +169,11 @@ namespace JustCli
             }
             catch (Exception e)
             {
-                throw new Exception(string.Format(
-                    "The argument [{0}] is not set up. The value [{1}] cannot be cast to [{2}].", 
-                    longName, stringValue, propertyType.Name));
+                throw new Exception(
+                    string.Format(
+                        "The argument [{0}] is not set up. The value [{1}] cannot be cast to [{2}].", 
+                        longName, stringValue, propertyType.Name),
+                    e);
             }
         }
 

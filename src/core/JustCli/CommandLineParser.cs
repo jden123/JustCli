@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JustCli.Commands;
@@ -26,6 +27,8 @@ namespace JustCli
 
         public bool ShowExceptionStackTrace { get; set; }
         
+        public List<IArgValueSource> AdditionalArgValueSources = new List<IArgValueSource>();
+        
         public CommandLineParser(ICommandRepository commandRepository, IOutput output = null)
         {
             CommandRepository = commandRepository;
@@ -33,6 +36,11 @@ namespace JustCli
             ShowExceptionStackTrace = false;
         }
 
+        public void AddAdditionalArgValueSource(IArgValueSource argValueSource)
+        {
+            AdditionalArgValueSources.Add(argValueSource);
+        }
+        
         public object ParseCommand(string[] args)
         {
             if (args.Length == 0)

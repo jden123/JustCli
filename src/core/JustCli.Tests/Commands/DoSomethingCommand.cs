@@ -1,5 +1,4 @@
-﻿using System;
-using JustCli.Attributes;
+﻿using JustCli.Attributes;
 
 namespace JustCli.Tests.Commands
 {
