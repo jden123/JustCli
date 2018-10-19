@@ -5,7 +5,11 @@ namespace JustCli
 {
     public class CommandActivator
     {
-        public static object CreateCommand(Type commandType, string[] args, IOutput output)
+        public static object CreateCommand(
+            Type commandType, 
+            string[] args, 
+            IOutput output, 
+            IEnumerable<IArgValueSource> additionalArgValueSources = null)
         {
             var commandArgumentPropertyInfos = CommandMetaDataHelper.GetCommandArgumentPropertyInfos(commandType);
 
@@ -13,7 +17,7 @@ namespace JustCli
 
             CommandMetaDataHelper.SetOutputProperty(command, output);
 
-            var commandContext = new CommandContext(args);
+            var commandContext = new CommandContext(args, additionalArgValueSources);
 
             var errors = new List<string>();
             foreach (var commandArgumentPropertyInfo in commandArgumentPropertyInfos)
