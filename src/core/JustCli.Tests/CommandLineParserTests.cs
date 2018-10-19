@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using JustCli.Commands;
 using JustCli.Tests.Commands;
 using NSubstitute;

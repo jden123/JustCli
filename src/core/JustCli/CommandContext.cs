@@ -12,7 +12,7 @@ namespace JustCli
         private readonly string CommandName;
         private readonly Dictionary<string, string> ArgValues = new Dictionary<string, string>(); 
         
-        public CommandContext(string[] args)
+        public CommandContext(string[] args, IEnumerable<IArgValueSource> additionalArgValueSources = null)
         {
             if (args.Length == 0)
             {
@@ -66,7 +66,7 @@ namespace JustCli
                 {
                     if (!string.IsNullOrEmpty(argName) && !ArgValues.ContainsKey(argName))
                     {
-                        ArgValues.Add(argName, argValue);
+                        ArgValues[argName] = argValue;
                     }
 
                     argName = element;
@@ -81,7 +81,7 @@ namespace JustCli
             }
 
             // put last pair
-            ArgValues.Add(argName, argValue);
+            ArgValues[argName] = argValue;
         }
 
         // TODO: try method and write down an error message
@@ -155,9 +155,11 @@ namespace JustCli
                     }
                     catch (Exception e)
                     {
-                        throw new Exception(string.Format(
-                            "The argument [{0}] is not set up. The default value [{1}] cannot be cast to [{2}].", 
-                            longName, defaultValueString, propertyType.Name));
+                        throw new Exception(
+                            string.Format(
+                                "The argument [{0}] is not set up. The default value [{1}] cannot be cast to [{2}].", 
+                                longName, defaultValueString, propertyType.Name),
+                            e);
                     }
                 }
 
@@ -179,9 +181,11 @@ namespace JustCli
             }
             catch (Exception e)
             {
-                throw new Exception(string.Format(
-                    "The argument [{0}] is not set up. The value [{1}] cannot be cast to [{2}].", 
-                    longName, stringValue, propertyType.Name));
+                throw new Exception(
+                    string.Format(
+                        "The argument [{0}] is not set up. The value [{1}] cannot be cast to [{2}].", 
+                        longName, stringValue, propertyType.Name),
+                    e);
             }
         }
 
