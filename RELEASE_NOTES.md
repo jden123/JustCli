@@ -1,3 +1,6 @@
+## New in 2.2.2.0 (Released 2018/10/19)
+* Additional argument value sources are used if no args are in the commandline.
+
 ## New in 2.2.1.0 (Released 2018/10/19)
 * Fix. Use additional argument value sources(ex: app.config).
 

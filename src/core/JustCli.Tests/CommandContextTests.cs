@@ -84,6 +84,80 @@ namespace JustCli.Tests
         }
         
         [Test]
+        public void ShouldGetValueFromAdditionalSource()
+        {
+            var argValueSource = Substitute.For<IArgValueSource>();
+            argValueSource.GetArgValues()
+                .Returns(new Dictionary<string, string>()
+                         {
+                             {"fromAdditionalSource", "10,25"}
+                         });
+
+            var commandContext = new CommandContext(Args, new []{argValueSource});
+
+            var argumentInfo = new ArgumentInfo() { LongName = "fromAdditionalSource", ArgumentType = typeof(decimal), DefaultValue = "0.123"};
+            var argValue = commandContext.GetArgValue(argumentInfo);
+
+            Assert.AreEqual(typeof(decimal), argValue.GetType());
+            Assert.AreEqual(10.25, argValue);
+        }
+        
+        [Test]
+        // override args
+        public void ShouldGetValueFromTheLatestAdditionalSource()
+        {
+            var argValueSource1 = Substitute.For<IArgValueSource>();
+            argValueSource1.GetArgValues()
+                .Returns(new Dictionary<string, string>()
+                         {
+                             {"fromAdditionalSource", "10,25"}
+                         });
+            
+            var argValueSource2 = Substitute.For<IArgValueSource>();
+            argValueSource2.GetArgValues()
+                .Returns(new Dictionary<string, string>()
+                         {
+                             {"fromAdditionalSource", "20,25"}
+                         });
+
+            var commandContext = new CommandContext(Args, new []{argValueSource1, argValueSource2});
+
+            var argumentInfo = new ArgumentInfo() { LongName = "fromAdditionalSource", ArgumentType = typeof(decimal), DefaultValue = "0.123"};
+            var argValue = commandContext.GetArgValue(argumentInfo);
+
+            Assert.AreEqual(typeof(decimal), argValue.GetType());
+            Assert.AreEqual(20.25, argValue);
+        }
+        
+        [Test]
+        // override from commandline
+        public void ShouldGetValueFromCommandlineIfExists()
+        {
+            var argValueSource1 = Substitute.For<IArgValueSource>();
+            argValueSource1.GetArgValues()
+                .Returns(new Dictionary<string, string>()
+                         {
+                             {"fromAdditionalSource", "10,25"}
+                         });
+            
+            var argValueSource2 = Substitute.For<IArgValueSource>();
+            argValueSource2.GetArgValues()
+                .Returns(new Dictionary<string, string>()
+                         {
+                             {"fromAdditionalSource", "20,25"}
+                         });
+
+            var args = new[] {"command", "--fromAdditionalSource", "30,25"};
+            var commandContext = new CommandContext(args, new []{argValueSource1, argValueSource2});
+
+            var argumentInfo = new ArgumentInfo() { LongName = "fromAdditionalSource", ArgumentType = typeof(decimal), DefaultValue = "0.123"};
+            var argValue = commandContext.GetArgValue(argumentInfo);
+
+            Assert.AreEqual(typeof(decimal), argValue.GetType());
+            Assert.AreEqual(30.25, argValue);
+        }
+        
+        [Test]
         public void ShouldParseAdditionalSourcesIfNoArgumentsInCommandline()
         {
             var argValueSource1 = Substitute.For<IArgValueSource>();
