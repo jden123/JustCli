@@ -24,7 +24,6 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-steps:
 - task: BatchScript@1
   displayName: 'Run script build.bat'
   inputs:
