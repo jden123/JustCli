@@ -1,7 +1,4 @@
-﻿using JustCli;
-using System;
-
-namespace JustCli.TestAppNetCore
+﻿namespace JustCli.TestAppNetCore
 {
    class Program
    {

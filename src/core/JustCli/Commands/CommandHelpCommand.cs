@@ -1,11 +1,13 @@
 using System;
 using System.Text;
+using JustCli.Attributes;
 
 namespace JustCli.Commands
 {
    public class CommandHelpCommand : ICommand
    {
-       public Type CommandType { get; set; }
+      private const string LikeTabSeparator = "  ";
+      public Type CommandType { get; set; }
        public IOutput Output { get; set; }
 
        public CommandHelpCommand(Type commandType, IOutput output)
@@ -25,7 +27,21 @@ namespace JustCli.Commands
                helpStringBuilder.AppendFormat(" - {0}", commandInfo.Description);
            }
 
-           Output.WriteInfo(helpStringBuilder.ToString());
+           if (!string.IsNullOrWhiteSpace(commandInfo.LongDescription))
+           {
+              helpStringBuilder.AppendLine();
+
+              var longDescriptionLines = commandInfo.LongDescription.Split(
+                 new[] { Environment.NewLine },
+                 StringSplitOptions.None);
+
+              foreach (var longDescriptionLine in longDescriptionLines)
+              {
+                 helpStringBuilder.AppendLine($"{LikeTabSeparator}{longDescriptionLine}");
+              }
+           }
+
+           Output.WriteInfo(helpStringBuilder.ToString().TrimEnd(Environment.NewLine.ToCharArray()));
 
            var commandArgumentPropertyInfos = CommandMetaDataHelper.GetCommandArgumentInfos(CommandType);
 
@@ -36,21 +52,19 @@ namespace JustCli.Commands
 
            foreach (var argumentInfo in commandArgumentPropertyInfos)
            {
-               var likeTabSeparator = "  ";
-
-               var propertyHelpStringBuilder = new StringBuilder();
-               propertyHelpStringBuilder.AppendFormat("{0}-{1}", likeTabSeparator, argumentInfo.ShortName);
+              var propertyHelpStringBuilder = new StringBuilder();
+               propertyHelpStringBuilder.AppendFormat("{0}-{1}", LikeTabSeparator, argumentInfo.ShortName);
 
                if (!string.IsNullOrWhiteSpace(argumentInfo.LongName))
                {
-                   propertyHelpStringBuilder.AppendFormat("{0}--{1}", likeTabSeparator, argumentInfo.LongName);
+                   propertyHelpStringBuilder.AppendFormat("{0}--{1}", LikeTabSeparator, argumentInfo.LongName);
                }
 
-               propertyHelpStringBuilder.AppendFormat("{0}[{1}]", likeTabSeparator, argumentInfo.ArgumentType.Name.ToLower());
+               propertyHelpStringBuilder.AppendFormat("{0}[{1}]", LikeTabSeparator, argumentInfo.ArgumentType.Name.ToLower());
 
                if (!string.IsNullOrWhiteSpace(argumentInfo.Description))
                {
-                   propertyHelpStringBuilder.AppendFormat("{0}{1}", likeTabSeparator, argumentInfo.Description);
+                   propertyHelpStringBuilder.AppendFormat("{0}{1}", LikeTabSeparator, argumentInfo.Description);
                }
 
                if (argumentInfo.DefaultValue != null)

@@ -22,6 +22,7 @@ namespace JustCli
             {
                 commandInfo.Name = commandAttribute.CommandName.ToLower();
                 commandInfo.Description = commandAttribute.CommandDescription;
+                commandInfo.LongDescription = commandAttribute.CommandLongDescription;
                 commandInfo.Order = commandAttribute.Order;
             }
 
@@ -45,9 +46,9 @@ namespace JustCli
 
                 commandArgumentInfos.Add(new ArgumentInfo()
                 {
-                    ShortName = commandArgumentAttribute.ShortName, 
-                    LongName = commandArgumentAttribute.LongName, 
-                    Description = commandArgumentAttribute.Description, 
+                    ShortName = commandArgumentAttribute.ShortName,
+                    LongName = commandArgumentAttribute.LongName,
+                    Description = commandArgumentAttribute.Description,
                     DefaultValue = commandArgumentAttribute.DefaultValue,
                     ArgumentType = propertyInfo.PropertyType
                 });
@@ -100,7 +101,7 @@ namespace JustCli
         {
             return commandType
                 .GetProperties()
-                .Where(p => p.PropertyType == typeof(IOutput) && 
+                .Where(p => p.PropertyType == typeof(IOutput) &&
                             p.GetCustomAttributes(typeof (CommandOutputAttribute), true).Length > 0)
                 .ToArray();
         }
