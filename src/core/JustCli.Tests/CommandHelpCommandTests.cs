@@ -18,10 +18,12 @@ namespace JustCli.Tests
             commandHelpCommand.Execute();
 
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("Do something n times.")));
+            Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("  That's long description line 1.")));
+            Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("  That's long description line 2.")));
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("-a")));
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("--action")));
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("Defines what should be done.")));
-            
+
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("-r")));
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("--repeat")));
             Assert.IsTrue(memoryOutput.Content.Any(l => l.Contains("Number of repeats.")));
