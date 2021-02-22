@@ -3,7 +3,11 @@ using JustCli.Attributes;
 
 namespace JustCli.Tests.Commands
 {
-    [Command("DoSomethingNTimesCommand", "Do something n times.")]
+    [Command(
+       "DoSomethingNTimesCommand",
+       "Do something n times.",
+       @"That's long description line 1.
+That's long description line 2.")]
     public class DoSomethingNTimesCommand : ICommand
     {
         [CommandArgument("a", "action", Description = "Defines what should be done.")]

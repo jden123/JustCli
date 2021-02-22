@@ -7,6 +7,7 @@ namespace JustCli.Dto
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string LongDescription { get; set; }
         public int Order { get; set; }
         public List<ArgumentInfo> ArgumentsInfo { get; set; }
         public Type Type { get; set; }
