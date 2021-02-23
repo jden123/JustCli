@@ -20,7 +20,12 @@ static int Main(string[] args)
 ```
 Create SayHelloCommand class and implement command logic.
 ```csharp
-[Command("sayhello", "Prints a greeting.")]
+[Command(
+    "sayhello",
+    "Prints a greeting.",
+    @"Very useful command that print hello to the output with the word you provide.
+This command is greatly described in this help text so you should be able to use it properly after you read it.
+More examples at http://hello.world/greetings/examples")]
 class SayHelloCommand : ICommand
 {
     [CommandArgument("n", "name", Description = "The someone to greet.", DefaultValue = "World")]
@@ -48,8 +53,11 @@ Also you can get help for a special command.
 ```
 cmd> TestApp.exe sayhello ? 
 sayhello - Prints a greeting.
+  Very useful command that print hello to the output with the word you provide.
+  This command is greatly described in this help text so you should be able to use it properly after you read it.
+  More examples at http://hello.world/greetings/examples
 Options:
-  -n  --name  [string]  The someone to greet. [default: World]
+  -n  --name  [string]  The someone to greet. [default: World]  
 ```
 That is what JustCli makes for you.
 

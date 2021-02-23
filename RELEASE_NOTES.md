@@ -1,3 +1,7 @@
+## New in 2.3.0.0 (Released 2021/02/23)
+* Add Help property for command(#30).
+* Support flags with Enum type(#25).
+
 ## New in 2.2.2.0 (Released 2018/10/19)
 * Additional argument value sources are used if no args are in the commandline.
 
