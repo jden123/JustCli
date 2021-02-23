@@ -19,6 +19,7 @@ Getting Started
   * [Command]
       * CommandName
       * CommandDescription
+      * CommandLongDescription
       * Order
     
   * [CommandArgument]
