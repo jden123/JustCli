@@ -74,16 +74,29 @@ Task("Compile")
   .IsDependentOn("Restore-NuGet-Packages")
   .Does(() =>
 {
-  DirectoryPath buildToolsInstallation  = VSWhereProducts("Microsoft.VisualStudio.Product.BuildTools").FirstOrDefault();
+  // find Microsoft.Component.MSBuild in all products and get latest
+  var buildToolsInstallation =  VSWhereProducts(
+      "*",
+      new VSWhereProductSettings
+      {
+        ReturnProperty = "",
+        Requires = "Microsoft.Component.MSBuild",
+        ArgumentCustomization = args => args.Append("-latest").Append("-find MSBuild/**/Bin/MSBuild.exe")
+      })
+    .FirstOrDefault();
 
   if (buildToolsInstallation == null)
   {
+    Error("Cannot find MSBuild.");
     throw new Exception("Cannot find MSBuild.");
   }
 
+  var msbuildPath = File(buildToolsInstallation.ToString());
+  Information($"MSBuild: {msbuildPath}");
+
   var settings = new MSBuildSettings {
     Configuration = "Release",
-    ToolPath = buildToolsInstallation.CombineWithFilePath("./MSBuild/15.0/Bin/MSBuild.exe")
+    ToolPath = msbuildPath
   };
 
   MSBuild(justCliSlnPath, settings);

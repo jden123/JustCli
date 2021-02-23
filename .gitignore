@@ -197,3 +197,4 @@ publish.bat
 /nuget
 publicNuget.bat
 Icon.svg
+.ionide
