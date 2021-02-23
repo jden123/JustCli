@@ -54,5 +54,18 @@ namespace JustCli.Tests
             Assert.IsInstanceOf<bool>(value);
             Assert.AreEqual(resultValue, value);
         }
+
+        [TestCase("Value1", TestEnum.Value1)]
+        [TestCase("value2", TestEnum.Value2)]
+        [TestCase("Value3", TestEnum.Value3)]
+        public void ConverterShouldConvertToEnum(string stringValue, TestEnum resultValue)
+        {
+           var converter = new ValueConverter();
+
+           var value = converter.ConvertFromString(stringValue, typeof (TestEnum));
+
+           Assert.IsInstanceOf<TestEnum>(value);
+           Assert.AreEqual(resultValue, value);
+        }
     }
 }

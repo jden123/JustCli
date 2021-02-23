@@ -66,6 +66,7 @@
     <Compile Include="CommandMetaDataHelperTests.cs" />
     <Compile Include="Commands\AsyncCommand.cs" />
     <Compile Include="Commands\DoSomethingWithDatesCommand.cs" />
+    <Compile Include="Commands\DoSomethingWithEnumCommand.cs" />
     <Compile Include="Commands\DoSomethingWithGuidsCommand.cs" />
     <Compile Include="Commands\ThrowExceptionCommand.cs" />
     <Compile Include="Commands\DoSomethingCommand.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Commands\SecondCommand.cs" />
     <Compile Include="MemoryOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestEnum.cs" />
     <Compile Include="ValueConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>

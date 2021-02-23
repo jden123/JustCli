@@ -67,6 +67,14 @@ namespace JustCli.Commands
                    propertyHelpStringBuilder.AppendFormat("{0}{1}", LikeTabSeparator, argumentInfo.Description);
                }
 
+               if (argumentInfo.ArgumentType.IsEnum)
+               {
+                  var values = Enum.GetNames(argumentInfo.ArgumentType);
+                  propertyHelpStringBuilder.AppendFormat(
+                     " [values: {0}]",
+                     string.Join(",", values));
+               }
+
                if (argumentInfo.DefaultValue != null)
                {
                    propertyHelpStringBuilder.AppendFormat(" [default: {0}]", argumentInfo.DefaultValue);

@@ -41,5 +41,17 @@ namespace JustCli.Tests
             Assert.IsTrue(memoryOutput.Content.Any(l => l.IndexOf("string", StringComparison.OrdinalIgnoreCase) >= 0));
             Assert.IsTrue(memoryOutput.Content.Any(l => l.IndexOf("int", StringComparison.OrdinalIgnoreCase) >= 0));
         }
+
+        [Test]
+        public void CommandHelpCommandShouldIncludeEnumValues()
+        {
+            var memoryOutput = new MemoryOutput();
+            var commandHelpCommand = new CommandHelpCommand(typeof(DoSomethingWithEnumCommand), memoryOutput);
+
+            commandHelpCommand.Execute();
+
+            Assert.IsTrue(memoryOutput.Content.Any(l => l.IndexOf("[values: Value1,Value2,Value3]", StringComparison.OrdinalIgnoreCase) >= 0));
+            Assert.IsTrue(memoryOutput.Content.Any(l => l.IndexOf("[default: Value2]", StringComparison.OrdinalIgnoreCase) >= 0));
+        }
     }
 }
